@@ -1,70 +1,65 @@
 <!doctype html><html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#07111f"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<link rel="manifest" href="manifest.json"><title>Cam's Life RPG — Shop</title>
+<link rel="manifest" href="manifest.json"><title>Cam's Life RPG — Achievements</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:linear-gradient(#07111f,#050b14);color:#f7f4ea;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",system-ui,sans-serif}
 .app{max-width:720px;margin:auto;padding:calc(8px + env(safe-area-inset-top)) 10px calc(90px + env(safe-area-inset-bottom))}
 .top{height:58px;display:grid;grid-template-columns:48px 1fr 48px;align-items:center;text-align:center;border-bottom:1px solid #29405f}.top h1{font-size:22px;margin:0}.top button{background:none;border:0;color:#e5b83d;font-size:24px}
-.card{background:#0b1729;border:1px solid #29446a;border-radius:20px;padding:14px;margin-top:11px;box-shadow:0 12px 30px #0004}.wallet{border-color:#d9a52d;display:flex;align-items:center;justify-content:space-between}.wallet small{display:block;color:#9aa8bc;font-size:10px}.coins{font-size:30px;font-weight:950;color:#f3cf63}
-.add{width:100%;margin-top:11px;border:0;border-radius:13px;background:#d9a52d;color:#111923;font-weight:950;padding:12px;font-size:14px}
+.card{background:#0b1729;border:1px solid #29446a;border-radius:20px;padding:14px;margin-top:11px;box-shadow:0 12px 30px #0004}
+.summary{border-color:#d9a52d;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}.stat{text-align:center}.stat b{font-size:22px;display:block}.stat small{font-size:10px;color:#91a0b7}
 .section{padding:12px 14px}.section-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px}.section-head h2{font-size:16px;margin:0}.count{color:#91a0b7;font-size:10px}
-.reward{display:grid;grid-template-columns:42px 1fr auto;gap:9px;align-items:center;border-top:1px solid #1c2e48;padding:12px 0}.reward:first-child{border-top:0}.ricon{width:40px;height:40px;border-radius:12px;background:#13233a;border:1px solid #36557f;display:grid;place-items:center;font-size:22px}.rname{font-weight:900;font-size:13px}.rmeta{font-size:10px;color:#91a0b7;margin-top:3px}.cost{color:#f1cb59;font-weight:950;font-size:12px;margin-top:2px}.actions{display:flex;gap:5px}.redeem,.edit,.delete{border:0;border-radius:9px;padding:8px 9px;font-size:10px;font-weight:950}.redeem{background:#e5b83d;color:#111923}.redeem:disabled{background:#263953;color:#7f8ea3}.edit{background:#223753;color:#dce4ef}.delete{background:#3a2028;color:#f0b8c2}
-.empty{text-align:center;color:#91a0b7;padding:15px;font-size:12px}
-.history{font-size:11px;color:#aab5c7}.history-row{display:flex;justify-content:space-between;padding:9px 0;border-top:1px solid #1c2e48}.history-row:first-child{border-top:0}.history-row b{color:#f1cb59}
-.modal{position:fixed;inset:0;background:#000b;display:none;align-items:flex-end;justify-content:center;padding:14px;z-index:8}.modal.show{display:flex}.box{width:100%;max-width:560px;background:#0b1729;border:1px solid #d9a52d;border-radius:22px;padding:18px;max-height:90vh;overflow:auto}.box h2{margin:0 0 12px;font-size:19px}.box p{color:#aab5c7;font-size:13px;line-height:1.45}.field{margin:10px 0}.field label{display:block;color:#aab5c7;font-size:11px;font-weight:800;margin-bottom:5px}.field input,.field select{width:100%;border:1px solid #36557f;background:#081426;color:#f7f4ea;border-radius:11px;padding:11px;font-size:14px;outline:none}.actions-bottom{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}.primary,.secondary{border:0;border-radius:12px;padding:12px;font-weight:950}.primary{background:#d9a52d;color:#111923}.secondary{background:#243954;color:#e5ebf5}
+.achievement{display:grid;grid-template-columns:50px 1fr auto;gap:10px;align-items:center;border-top:1px solid #1c2e48;padding:12px 0}.achievement:first-child{border-top:0}.badge{width:48px;height:48px;border-radius:15px;display:grid;place-items:center;font-size:27px;background:#13233a;border:1px solid #36557f}.locked{filter:grayscale(1);opacity:.45}.aname{font-size:13px;font-weight:950}.adesc{font-size:10px;color:#91a0b7;margin-top:3px;line-height:1.35}.progress{height:7px;background:#101d31;border:1px solid #31496d;border-radius:99px;overflow:hidden;margin-top:6px}.fill{height:100%;background:#934cff}.reward{font-size:10px;color:#e5c45b;margin-top:4px}.status{font-size:10px;font-weight:950;text-align:right}.unlocked{color:#48e58a}.locked-text{color:#718198}
+.toast{position:fixed;left:50%;bottom:94px;transform:translate(-50%,20px);opacity:0;background:#f8f5ec;color:#101722;border-radius:14px;padding:11px 15px;font-weight:900;font-size:13px;z-index:10;transition:.25s;white-space:nowrap}
+.toast.show{opacity:1;transform:translate(-50%,0)}
 .bottom{position:fixed;bottom:0;left:0;right:0;background:#06101c;border-top:1px solid #29405f;padding:7px 8px calc(7px + env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(5,1fr);z-index:4}.nav{background:none;border:0;color:#91a0b7;font-size:10px;font-weight:800}.nav b{display:block;font-size:20px;margin-bottom:2px}.nav.active{color:#f0bf36}
-.toast{position:fixed;left:50%;bottom:94px;transform:translate(-50%,20px);opacity:0;background:#f8f5ec;color:#101722;border-radius:14px;padding:10px 14px;font-weight:900;font-size:13px;z-index:10;transition:.25s;white-space:nowrap}.toast.show{opacity:1;transform:translate(-50%,0)}
+.modal{position:fixed;inset:0;background:#000b;display:none;align-items:center;justify-content:center;padding:18px;z-index:8}.modal.show{display:flex}.box{width:100%;max-width:390px;background:#0b1729;border:1px solid #d9a52d;border-radius:22px;padding:22px;text-align:center}.box .big{font-size:48px}.box h2{margin:8px 0 5px;font-size:20px}.box p{color:#aab5c7;font-size:12px;line-height:1.5}.box button{border:0;border-radius:12px;padding:11px 20px;background:#d9a52d;color:#111923;font-weight:950}
 </style></head><body><div class="app">
-<header class="top"><button>☰</button><h1>♜ Reward Shop</h1><button onclick="openForm()">＋</button></header>
-<section class="card wallet"><div><small>YOUR WALLET</small><div>Coins available</div></div><div class="coins">🪙 <span id="coins">0</span></div></section>
-<button class="add" onclick="openForm()">＋ Add Reward</button>
+<header class="top"><button onclick="info('Home','Home will be connected to the complete app navigation.')">⌂</button><h1>🏆 Achievements</h1><button onclick="info('About Achievements','Achievements track long-term progress across your entire adventure.')">ⓘ</button></header>
+<section class="card summary"><div class="stat"><b id="unlocked">0</b><small>Unlocked</small></div><div class="stat"><b id="total">8</b><small>Total</small></div><div class="stat"><b>🪙 <span id="earned">0</span></b><small>Bonus Coins Earned</small></div></section>
 <div id="sections"></div>
-<section class="card section"><div class="section-head"><h2>🧾 Redemption History</h2><span class="count" id="historyCount">0</span></div><div class="history" id="history"></div></section>
 </div>
-<nav class="bottom"><button class="nav" onclick="info('Home','Home will be connected to the complete app navigation.')"><b>⌂</b>Home</button><button class="nav" onclick="info('Character','Your character sheet is available from the Character screen.')"><b>●</b>Character</button><button class="nav" onclick="info('Quests','Your quest system is available from the Quests screen.')"><b>☷</b>Quests</button><button class="nav active"><b>♜</b>Shop</button><button class="nav" onclick="info('Achievements','Achievements will be connected next.')"><b>🏆</b>Achievements</button></nav>
-
-<div class="modal" id="formModal"><div class="box"><h2 id="formTitle">＋ Add Reward</h2>
-<div class="field"><label>REWARD NAME</label><input id="rName" maxlength="60" placeholder="e.g. 30 minutes of gaming"></div>
-<div class="field"><label>CATEGORY</label><select id="rCategory"><option>Small</option><option>Fun</option><option>Big</option><option>Legendary</option></select></div>
-<div class="field"><label>REWARD ICON</label><input id="rIcon" maxlength="4" value="🎁"></div>
-<div class="field"><label>COIN COST</label><input id="rCost" type="number" min="1" max="99999" value="25"></div>
-<div class="actions-bottom"><button class="secondary" onclick="closeForm()">Cancel</button><button class="primary" onclick="saveReward()">Save Reward</button></div>
-</div></div>
-
-<div class="modal" id="redeemModal"><div class="box"><h2 id="redeemTitle"></h2><p id="redeemText"></p><div class="actions-bottom"><button class="secondary" onclick="closeRedeem()">Cancel</button><button class="primary" id="redeemBtn">Redeem</button></div></div></div>
+<nav class="bottom"><button class="nav" onclick="info('Home','Home will be connected to the complete app navigation.')"><b>⌂</b>Home</button><button class="nav" onclick="info('Character','Your character sheet is available from the Character screen.')"><b>●</b>Character</button><button class="nav" onclick="info('Quests','Your quest system is available from the Quests screen.')"><b>☷</b>Quests</button><button class="nav" onclick="info('Shop','Your Reward Shop is available from the Shop screen.')"><b>♜</b>Shop</button><button class="nav active"><b>🏆</b>Achievements</button></nav>
+<div class="modal" id="modal"><div class="box"><div class="big" id="mIcon">🏆</div><h2 id="mTitle"></h2><p id="mText"></p><button onclick="closeModal()">Continue</button></div></div>
 <div class="toast" id="toast"></div>
 <script>
-const saveKey="camRpgSave",rewardKey="camRpgRewards";
-const builtIn=[
-{id:"drink",name:"Favorite Drink",icon:"🥤",category:"Small",cost:10},
-{id:"snack",name:"Favorite Snack",icon:"🍿",category:"Small",cost:15},
-{id:"gaming",name:"30 Minutes of Gaming",icon:"🎮",category:"Fun",cost:25},
-{id:"movie",name:"Watch a Movie",icon:"🎬",category:"Fun",cost:30},
-{id:"meal",name:"Favorite Meal",icon:"🍔",category:"Big",cost:40},
-{id:"mystery",name:"Mystery Reward",icon:"🎁",category:"Legendary",cost:50}
+const saveKey="camRpgSave",achKey="camRpgAchievements";
+const defs=[
+{id:"starter",name:"Getting Started",icon:"🌱",desc:"Complete your first quest.",target:1,reward:5,metric:"quests"},
+{id:"adventurer",name:"Adventurer",icon:"⚔️",desc:"Complete 10 quests.",target:10,reward:15,metric:"quests"},
+{id:"roll",name:"On a Roll",icon:"🔥",desc:"Reach a 3-day streak.",target:3,reward:20,metric:"streak"},
+{id:"unstoppable",name:"Unstoppable",icon:"🔥🔥",desc:"Reach a 7-day streak.",target:7,reward:50,metric:"streak"},
+{id:"treasure",name:"Treasure Hunter",icon:"💰",desc:"Earn 100 coins from quests and achievements.",target:100,reward:25,metric:"earnedCoins"},
+{id:"purchase",name:"First Purchase",icon:"🛍️",desc:"Redeem your first reward.",target:1,reward:10,metric:"purchases"},
+{id:"boss",name:"Boss Slayer",icon:"🐉",desc:"Complete your first Boss Quest.",target:1,reward:30,metric:"boss"},
+{id:"legend",name:"RPG Legend",icon:"👑",desc:"Reach Level 10.",target:10,reward:100,metric:"level"}
 ];
-let state={coins:0,rewardHistory:[]};try{state=Object.assign(state,JSON.parse(localStorage.getItem(saveKey)||"{}"))}catch(e){}
-let custom=[];try{custom=JSON.parse(localStorage.getItem(rewardKey)||"[]")}catch(e){}
-let editingId=null,pendingId=null;
-function all(){return builtIn.concat(custom)}
-function persist(){localStorage.setItem(saveKey,JSON.stringify(state));localStorage.setItem(rewardKey,JSON.stringify(custom))}
-function render(){
-document.getElementById("coins").textContent=Number(state.coins)||0;
-const cats=[["Small","🍬 Small Rewards"],["Fun","🎮 Fun Rewards"],["Big","✨ Big Rewards"],["Legendary","👑 Legendary Rewards"]];
-document.getElementById("sections").innerHTML=cats.map(([cat,label])=>{const rs=all().filter(r=>r.category===cat);if(!rs.length)return "";return `<section class="card section"><div class="section-head"><h2>${label}</h2><span class="count">${rs.length}</span></div>${rs.map(rewardHTML).join("")}</section>`}).join("");
-const h=Array.isArray(state.rewardHistory)?state.rewardHistory.slice().reverse():[];document.getElementById("historyCount").textContent=h.length;document.getElementById("history").innerHTML=h.length?h.slice(0,10).map(x=>`<div class="history-row"><span>${x.icon||"🎁"} ${esc(x.name)}</span><b>−${x.cost} 🪙</b></div>`).join(""):`<div class="empty">No rewards redeemed yet.</div>`;
+let state={totalXp:0,coins:0,streak:0,totalCompleted:0,history:[],rewardHistory:[]};
+try{state=Object.assign(state,JSON.parse(localStorage.getItem(saveKey)||"{}"))}catch(e){}
+let achState={unlocked:{},earnedCoins:0};try{achState=Object.assign(achState,JSON.parse(localStorage.getItem(achKey)||"{}"))}catch(e){}
+const xp=Number(state.totalXp)||0,level=Math.floor(xp/50)+1;
+function metric(a){
+if(a.metric==="quests")return Number(state.totalCompleted)||0;
+if(a.metric==="streak")return Number(state.streak)||0;
+if(a.metric==="earnedCoins")return (Number(state.totalCoinsEarned)||0);
+if(a.metric==="purchases")return Array.isArray(state.rewardHistory)?state.rewardHistory.length:0;
+if(a.metric==="boss"){return Array.isArray(state.history)?state.history.filter(x=>x.category==="Boss"||x.type==="boss").length:0}
+if(a.metric==="level")return level;return 0;
 }
-function rewardHTML(r){const can=(Number(state.coins)||0)>=r.cost;return `<div class="reward"><div class="ricon">${r.icon}</div><div><div class="rname">${esc(r.name)}</div><div class="rmeta">${r.category} reward</div><div class="cost">🪙 ${r.cost}</div></div><div class="actions"><button class="redeem" ${can?"":"disabled"} onclick="askRedeem('${r.id}')">Redeem</button>${r.custom?`<button class="edit" onclick="openForm('${r.id}')">Edit</button><button class="delete" onclick="deleteReward('${r.id}')">×</button>`:""}</div></div>`}
-function askRedeem(id){const r=all().find(x=>x.id===id);if(!r)return;pendingId=id;document.getElementById("redeemTitle").textContent="🎁 Redeem Reward?";document.getElementById("redeemText").textContent=`${r.icon} ${r.name} costs ${r.cost} coins. You have ${state.coins} coins. Redeem it for ${r.cost} coins?`;document.getElementById("redeemBtn").onclick=redeem;document.getElementById("redeemModal").classList.add("show")}
-function closeRedeem(){document.getElementById("redeemModal").classList.remove("show");pendingId=null}
-function redeem(){const r=all().find(x=>x.id===pendingId);if(!r||state.coins<r.cost){closeRedeem();toast("You don't have enough coins.");return}state.coins-=r.cost;state.rewardHistory=Array.isArray(state.rewardHistory)?state.rewardHistory:[];state.rewardHistory.push({id:r.id,name:r.name,icon:r.icon,cost:r.cost,date:new Date().toISOString()});persist();closeRedeem();render();toast(`🎉 ${r.name} redeemed! −${r.cost} 🪙`)}
-function openForm(id){editingId=id||null;const r=id?custom.find(x=>x.id===id):null;document.getElementById("formTitle").textContent=r?"✏️ Edit Reward":"＋ Add Reward";document.getElementById("rName").value=r?.name||"";document.getElementById("rCategory").value=r?.category||"Small";document.getElementById("rIcon").value=r?.icon||"🎁";document.getElementById("rCost").value=r?.cost??25;document.getElementById("formModal").classList.add("show");setTimeout(()=>document.getElementById("rName").focus(),100)}
-function closeForm(){document.getElementById("formModal").classList.remove("show");editingId=null}
-function saveReward(){const name=document.getElementById("rName").value.trim();if(!name){toast("Give your reward a name first.");return}const old=editingId;const obj={id:editingId||"reward-"+Date.now(),name,category:document.getElementById("rCategory").value,icon:document.getElementById("rIcon").value.trim()||"🎁",cost:Math.max(1,Number(document.getElementById("rCost").value)||1),custom:true};if(old){const i=custom.findIndex(x=>x.id===old);if(i>=0)custom[i]=obj}else custom.push(obj);persist();closeForm();render();toast(old?"Reward updated!":"Reward added to your shop!")}
-function deleteReward(id){const r=custom.find(x=>x.id===id);if(!r)return;if(!confirm(`Delete "${r.name}"?`))return;custom=custom.filter(x=>x.id!==id);persist();render();toast("Reward removed.")}
-function info(t,p){document.getElementById("redeemTitle").textContent=t;document.getElementById("redeemText").textContent=p;document.getElementById("redeemBtn").textContent="Close";document.getElementById("redeemBtn").onclick=closeRedeem;document.getElementById("redeemModal").classList.add("show")}
-function toast(t){const x=document.getElementById("toast");x.textContent=t;x.classList.add("show");setTimeout(()=>x.classList.remove("show"),1900)}
-function esc(s){return s.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function check(){
+let newly=[];
+for(const a of defs){const v=metric(a);if(v>=a.target&&!achState.unlocked[a.id]){achState.unlocked[a.id]=new Date().toISOString();achState.earnedCoins=(Number(achState.earnedCoins)||0)+a.reward;state.coins=(Number(state.coins)||0)+a.reward;newly.push(a)}}
+if(newly.length){localStorage.setItem(saveKey,JSON.stringify(state));localStorage.setItem(achKey,JSON.stringify(achState));setTimeout(()=>celebrate(newly[0]),150)}
+else{localStorage.setItem(achKey,JSON.stringify(achState))}
+}
+function render(){
+check();const u=defs.filter(a=>achState.unlocked[a.id]).length;document.getElementById("unlocked").textContent=u;document.getElementById("total").textContent=defs.length;document.getElementById("earned").textContent=achState.earnedCoins||0;
+document.getElementById("sections").innerHTML=`<section class="card section"><div class="section-head"><h2>🏆 Your Achievements</h2><span class="count">${u}/${defs.length}</span></div>${defs.map(a=>html(a)).join("")}</section>`;
+}
+function html(a){const v=Math.min(metric(a),a.target),done=!!achState.unlocked[a.id],pct=Math.round(v/a.target*100);return `<div class="achievement"><div class="badge ${done?"":"locked"}">${done?a.icon:"🔒"}</div><div><div class="aname">${a.name}</div><div class="adesc">${a.desc}</div><div class="progress"><div class="fill" style="width:${pct}%"></div></div><div class="reward">🪙 +${a.reward} bonus coins · ${v}/${a.target}</div></div><div class="status ${done?"unlocked":"locked-text"}">${done?"✓ UNLOCKED":"LOCKED"}</div></div>`}
+function celebrate(a){document.getElementById("mIcon").textContent=a.icon;document.getElementById("mTitle").textContent="Achievement Unlocked!";document.getElementById("mText").innerHTML=`<strong>${a.name}</strong><br>${a.desc}<br><br><b>+${a.reward} 🪙 bonus coins</b>`;document.getElementById("modal").classList.add("show")}
+function closeModal(){document.getElementById("modal").classList.remove("show")}
+function info(t,p){document.getElementById("mIcon").textContent="🏆";document.getElementById("mTitle").textContent=t;document.getElementById("mText").textContent=p;document.getElementById("modal").classList.add("show")}
+function toast(t){const x=document.getElementById("toast");x.textContent=t;x.classList.add("show");setTimeout(()=>x.classList.remove("show"),1800)}
 render();
 </script></body></html>
