@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#111827">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Cam's Life RPG">
+  <link rel="manifest" href="manifest.json">
+  <title>Cam's Life RPG</title>
+  <style>
+    :root { font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",system-ui,sans-serif; color:#f8fafc; background:#0f172a; }
+    *{box-sizing:border-box} body{margin:0;background:linear-gradient(160deg,#111827,#0f172a 55%,#172554);min-height:100vh}
+    .app{max-width:700px;margin:auto;padding:calc(18px + env(safe-area-inset-top)) 18px calc(28px + env(safe-area-inset-bottom))}
+    h1{margin:0;font-size:30px}.sub{color:#94a3b8;margin-top:4px}
+    .card{background:rgba(30,41,59,.78);border:1px solid rgba(148,163,184,.16);border-radius:22px;padding:18px;margin-top:16px;box-shadow:0 12px 30px rgba(0,0,0,.16)}
+    .hero{display:flex;justify-content:space-between;gap:12px;align-items:center}.level{font-size:14px;color:#cbd5e1}.xp{font-size:27px;font-weight:800;margin-top:3px}
+    .bar{height:10px;background:#334155;border-radius:99px;overflow:hidden;margin-top:12px}.fill{height:100%;background:#60a5fa;border-radius:99px;transition:width .25s}
+    .quest{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid rgba(148,163,184,.12)}.quest:last-child{border-bottom:0}
+    .quest button{margin-left:auto;border:0;border-radius:14px;padding:10px 12px;background:#2563eb;color:white;font-weight:700}.quest.done button{background:#334155}
+    .quest.done .name{text-decoration:line-through;color:#64748b}.name{font-weight:700}.pts{font-size:13px;color:#94a3b8;margin-top:2px}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{padding:14px;border-radius:16px;background:rgba(15,23,42,.45)}.stat b{font-size:22px}.stat span{display:block;color:#94a3b8;font-size:13px;margin-top:3px}
+    .reset{width:100%;margin-top:14px;background:transparent;color:#94a3b8;border:1px solid #334155;border-radius:14px;padding:12px}
+    .tiny{font-size:12px;color:#64748b;text-align:center;margin-top:18px}
+  </style>
+</head>
+<body>
+<div class="app">
+  <div class="hero">
+    <div><h1>Cam's Life RPG</h1><div class="sub">Today's character dashboard</div></div>
+    <div style="font-size:34px">⚔️</div>
+  </div>
+
+  <section class="card">
+    <div class="level">LEVEL <span id="level">1</span></div>
+    <div class="xp"><span id="xp">0</span> / 50 XP</div>
+    <div class="bar"><div class="fill" id="fill" style="width:0%"></div></div>
+  </section>
+
+  <section class="card">
+    <h2 style="margin:0 0 4px">Today's Quests</h2>
+    <div class="sub">Complete what you can. No zero-day guilt.</div>
+    <div id="quests"></div>
+  </section>
+
+  <section class="card">
+    <h2 style="margin:0 0 12px">Stats</h2>
+    <div class="grid">
+      <div class="stat">💪 <b id="strength">0</b><span>Strength</span></div>
+      <div class="stat">🧼 <b id="selfcare">0</b><span>Self-Care</span></div>
+      <div class="stat">🍽️ <b id="nutrition">0</b><span>Nutrition</span></div>
+      <div class="stat">🧹 <b id="environment">0</b><span>Environment</span></div>
+    </div>
+  </section>
+
+  <button class="reset" id="reset">Reset today's quests</button>
+  <div class="tiny">Progress is saved on this device.</div>
+</div>
+
+<script>
+const quests = [
+  {id:"bed", name:"Get out of bed", pts:2, stat:null},
+  {id:"brush-am", name:"Morning brush", pts:2, stat:"selfcare"},
+  {id:"breakfast", name:"Eat breakfast", pts:3, stat:"nutrition"},
+  {id:"shower", name:"Shower", pts:3, stat:"selfcare"},
+  {id:"clean", name:"5-minute room reset", pts:2, stat:"environment"},
+  {id:"workout", name:"Workout", pts:5, stat:"strength"},
+  {id:"dinner", name:"Eat dinner", pts:3, stat:"nutrition"},
+  {id:"brush-pm", name:"Night brush", pts:2, stat:"selfcare"}
+];
+
+const today = new Date().toISOString().slice(0,10);
+let state = JSON.parse(localStorage.getItem("camRpg") || "null");
+if (!state || state.date !== today) state = {date:today, done:{}, xp:0, stats:{strength:0,selfcare:0,nutrition:0,environment:0}};
+
+function render(){
+  const total = Object.values(state.done).filter(Boolean).reduce((sum,id)=>sum + (quests.find(q=>q.id===id)?.pts||0),0);
+  const level = Math.floor(total/50)+1, current = total%50;
+  document.getElementById("level").textContent=level;
+  document.getElementById("xp").textContent=current;
+  document.getElementById("fill").style.width=(current*2)+"%";
+  for(const k of Object.keys(state.stats)) document.getElementById(k).textContent=state.stats[k];
+  document.getElementById("quests").innerHTML=quests.map(q=>{
+    const done=!!state.done[q.id];
+    return `<div class="quest ${done?"done":""}">
+      <div><div class="name">${q.name}</div><div class="pts">+${q.pts} XP</div></div>
+      <button data-id="${q.id}">${done?"Done ✓":"Complete"}</button>
+    </div>`;
+  }).join("");
+  document.querySelectorAll("[data-id]").forEach(btn=>btn.onclick=()=>toggle(btn.dataset.id));
+  localStorage.setItem("camRpg",JSON.stringify({...state,xp:total}));
+}
+function toggle(id){
+  const q=quests.find(x=>x.id===id); if(!q)return;
+  if(state.done[id]) { delete state.done[id]; if(q.stat) state.stats[q.stat]=Math.max(0,state.stats[q.stat]-q.pts); }
+  else { state.done[id]=id; if(q.stat) state.stats[q.stat]+=q.pts; }
+  render();
+}
+document.getElementById("reset").onclick=()=>{
+  if(confirm("Reset today's completed quests?")) { state.done={}; state.stats={strength:0,selfcare:0,nutrition:0,environment:0}; render(); }
+};
+render();
+if("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(()=>{});
+</script>
+</body>
+</html>
