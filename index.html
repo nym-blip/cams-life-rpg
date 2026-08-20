@@ -1,131 +1,70 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#07111f">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Cam RPG">
-<link rel="manifest" href="manifest.json">
-<title>Cam's Life RPG — Quests</title>
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07111f"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.json"><title>Cam's Life RPG — Shop</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:linear-gradient(#07111f,#050b14);color:#f7f4ea;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",system-ui,sans-serif}
 .app{max-width:720px;margin:auto;padding:calc(8px + env(safe-area-inset-top)) 10px calc(90px + env(safe-area-inset-bottom))}
 .top{height:58px;display:grid;grid-template-columns:48px 1fr 48px;align-items:center;text-align:center;border-bottom:1px solid #29405f}.top h1{font-size:22px;margin:0}.top button{background:none;border:0;color:#e5b83d;font-size:24px}
-.card{background:#0b1729;border:1px solid #29446a;border-radius:20px;padding:14px;margin-top:11px;box-shadow:0 12px 30px #0004}.intro{border-color:#d9a52d}.intro h2{margin:0;font-size:19px}.intro p{margin:6px 0 0;color:#aab5c7;font-size:12px;line-height:1.4}
-.add{width:100%;margin-top:12px;border:0;border-radius:13px;background:#d9a52d;color:#111923;font-weight:950;padding:12px;font-size:14px}
-.section{padding:12px 14px}.section-head{display:flex;justify-content:space-between;align-items:center;cursor:pointer}.section-head h2{font-size:16px;margin:0}.count{color:#9aa8bc;font-size:11px}.chev{color:#e5b83d;font-size:16px}.collapsed .quest-list{display:none}
-.quest{display:grid;grid-template-columns:34px 1fr auto;gap:8px;align-items:center;padding:12px 0;border-top:1px solid #1c2e48}.quest:first-child{border-top:0}.qicon{font-size:22px;text-align:center}.qname{font-size:13px;font-weight:900}.qmeta{font-size:10px;color:#91a0b7;margin-top:3px}.rewards{font-size:10px;color:#d7c071;margin-top:2px}.actions{display:flex;gap:5px}.complete,.edit,.delete{border:0;border-radius:9px;padding:7px 8px;font-size:10px;font-weight:950}.complete{background:#e5b83d;color:#111923}.complete.done{background:#33465f;color:#dce4ef}.edit{background:#223753;color:#dce4ef}.delete{background:#3a2028;color:#f0b8c2}.done-row{opacity:.72}.done-name{text-decoration:line-through}
-.empty{text-align:center;color:#91a0b7;padding:14px;font-size:12px}
-.modal{position:fixed;inset:0;background:#000b;display:none;align-items:flex-end;justify-content:center;padding:14px;z-index:8}.modal.show{display:flex}.box{width:100%;max-width:560px;background:#0b1729;border:1px solid #d9a52d;border-radius:22px;padding:18px;max-height:90vh;overflow:auto}.box h2{margin:0 0 12px;font-size:19px}.field{margin:10px 0}.field label{display:block;color:#aab5c7;font-size:11px;font-weight:800;margin-bottom:5px}.field input,.field select{width:100%;border:1px solid #36557f;background:#081426;color:#f7f4ea;border-radius:11px;padding:11px;font-size:14px;outline:none}.reward-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.actions-bottom{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}.primary,.secondary{border:0;border-radius:12px;padding:12px;font-weight:950}.primary{background:#d9a52d;color:#111923}.secondary{background:#243954;color:#e5ebf5}
-.toast{position:fixed;left:50%;bottom:94px;transform:translate(-50%,20px);opacity:0;background:#f8f5ec;color:#101722;border-radius:14px;padding:10px 14px;font-weight:900;font-size:13px;z-index:10;transition:.25s;white-space:nowrap}.toast.show{opacity:1;transform:translate(-50%,0)}
+.card{background:#0b1729;border:1px solid #29446a;border-radius:20px;padding:14px;margin-top:11px;box-shadow:0 12px 30px #0004}.wallet{border-color:#d9a52d;display:flex;align-items:center;justify-content:space-between}.wallet small{display:block;color:#9aa8bc;font-size:10px}.coins{font-size:30px;font-weight:950;color:#f3cf63}
+.add{width:100%;margin-top:11px;border:0;border-radius:13px;background:#d9a52d;color:#111923;font-weight:950;padding:12px;font-size:14px}
+.section{padding:12px 14px}.section-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px}.section-head h2{font-size:16px;margin:0}.count{color:#91a0b7;font-size:10px}
+.reward{display:grid;grid-template-columns:42px 1fr auto;gap:9px;align-items:center;border-top:1px solid #1c2e48;padding:12px 0}.reward:first-child{border-top:0}.ricon{width:40px;height:40px;border-radius:12px;background:#13233a;border:1px solid #36557f;display:grid;place-items:center;font-size:22px}.rname{font-weight:900;font-size:13px}.rmeta{font-size:10px;color:#91a0b7;margin-top:3px}.cost{color:#f1cb59;font-weight:950;font-size:12px;margin-top:2px}.actions{display:flex;gap:5px}.redeem,.edit,.delete{border:0;border-radius:9px;padding:8px 9px;font-size:10px;font-weight:950}.redeem{background:#e5b83d;color:#111923}.redeem:disabled{background:#263953;color:#7f8ea3}.edit{background:#223753;color:#dce4ef}.delete{background:#3a2028;color:#f0b8c2}
+.empty{text-align:center;color:#91a0b7;padding:15px;font-size:12px}
+.history{font-size:11px;color:#aab5c7}.history-row{display:flex;justify-content:space-between;padding:9px 0;border-top:1px solid #1c2e48}.history-row:first-child{border-top:0}.history-row b{color:#f1cb59}
+.modal{position:fixed;inset:0;background:#000b;display:none;align-items:flex-end;justify-content:center;padding:14px;z-index:8}.modal.show{display:flex}.box{width:100%;max-width:560px;background:#0b1729;border:1px solid #d9a52d;border-radius:22px;padding:18px;max-height:90vh;overflow:auto}.box h2{margin:0 0 12px;font-size:19px}.box p{color:#aab5c7;font-size:13px;line-height:1.45}.field{margin:10px 0}.field label{display:block;color:#aab5c7;font-size:11px;font-weight:800;margin-bottom:5px}.field input,.field select{width:100%;border:1px solid #36557f;background:#081426;color:#f7f4ea;border-radius:11px;padding:11px;font-size:14px;outline:none}.actions-bottom{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}.primary,.secondary{border:0;border-radius:12px;padding:12px;font-weight:950}.primary{background:#d9a52d;color:#111923}.secondary{background:#243954;color:#e5ebf5}
 .bottom{position:fixed;bottom:0;left:0;right:0;background:#06101c;border-top:1px solid #29405f;padding:7px 8px calc(7px + env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(5,1fr);z-index:4}.nav{background:none;border:0;color:#91a0b7;font-size:10px;font-weight:800}.nav b{display:block;font-size:20px;margin-bottom:2px}.nav.active{color:#f0bf36}
-@media(max-width:420px){.actions .edit,.actions .delete{padding:7px 6px}.qname{font-size:12px}}
-</style>
-</head>
-<body>
-<div class="app">
-<header class="top"><button onclick="showInfo('Home','The Home screen is the daily dashboard.')">⌂</button><h1>⚔️ Quests</h1><button onclick="openForm()">＋</button></header>
-
-<section class="card intro">
-<h2>Build Your Adventure</h2>
-<p>Complete everyday quests, add your own goals, and earn XP + coins as you go.</p>
-<button class="add" onclick="openForm()">＋ Add Quest</button>
-</section>
-
+.toast{position:fixed;left:50%;bottom:94px;transform:translate(-50%,20px);opacity:0;background:#f8f5ec;color:#101722;border-radius:14px;padding:10px 14px;font-weight:900;font-size:13px;z-index:10;transition:.25s;white-space:nowrap}.toast.show{opacity:1;transform:translate(-50%,0)}
+</style></head><body><div class="app">
+<header class="top"><button>☰</button><h1>♜ Reward Shop</h1><button onclick="openForm()">＋</button></header>
+<section class="card wallet"><div><small>YOUR WALLET</small><div>Coins available</div></div><div class="coins">🪙 <span id="coins">0</span></div></section>
+<button class="add" onclick="openForm()">＋ Add Reward</button>
 <div id="sections"></div>
+<section class="card section"><div class="section-head"><h2>🧾 Redemption History</h2><span class="count" id="historyCount">0</span></div><div class="history" id="history"></div></section>
 </div>
+<nav class="bottom"><button class="nav" onclick="info('Home','Home will be connected to the complete app navigation.')"><b>⌂</b>Home</button><button class="nav" onclick="info('Character','Your character sheet is available from the Character screen.')"><b>●</b>Character</button><button class="nav" onclick="info('Quests','Your quest system is available from the Quests screen.')"><b>☷</b>Quests</button><button class="nav active"><b>♜</b>Shop</button><button class="nav" onclick="info('Achievements','Achievements will be connected next.')"><b>🏆</b>Achievements</button></nav>
 
-<nav class="bottom">
-<button class="nav" onclick="showInfo('Home','Open the Home screen from your deployed app navigation.')"><b>⌂</b>Home</button>
-<button class="nav" onclick="showInfo('Character','Your character sheet is available in the Character screen.')"><b>●</b>Character</button>
-<button class="nav active"><b>☷</b>Quests</button>
-<button class="nav" onclick="showInfo('Shop','The Reward Shop will be connected next.')"><b>♜</b>Shop</button>
-<button class="nav" onclick="showInfo('Achievements','Achievements will be connected next.')"><b>🏆</b>Achievements</button>
-</nav>
-
-<div class="modal" id="formModal"><div class="box">
-<h2 id="formTitle">＋ Add Quest</h2>
-<div class="field"><label>QUEST NAME</label><input id="qName" maxlength="60" placeholder="e.g. Take out the trash"></div>
-<div class="field"><label>CATEGORY</label><select id="qCategory"><option>Daily</option><option>Bonus</option><option>Challenge</option><option>Boss</option></select></div>
-<div class="field"><label>QUEST ICON</label><input id="qIcon" maxlength="4" value="⚔️"></div>
-<div class="field"><label>QUEST TYPE</label><select id="qType"><option value="recurring">🔄 Recurring — resets each day</option><option value="one-time">📌 One-time — stays completed</option></select></div>
-<div class="reward-grid"><div class="field"><label>XP REWARD</label><input id="qXp" type="number" min="0" max="999" value="3"></div><div class="field"><label>COIN REWARD</label><input id="qCoin" type="number" min="0" max="999" value="3"></div></div>
-<div class="actions-bottom"><button class="secondary" onclick="closeForm()">Cancel</button><button class="primary" onclick="saveQuest()">Save Quest</button></div>
+<div class="modal" id="formModal"><div class="box"><h2 id="formTitle">＋ Add Reward</h2>
+<div class="field"><label>REWARD NAME</label><input id="rName" maxlength="60" placeholder="e.g. 30 minutes of gaming"></div>
+<div class="field"><label>CATEGORY</label><select id="rCategory"><option>Small</option><option>Fun</option><option>Big</option><option>Legendary</option></select></div>
+<div class="field"><label>REWARD ICON</label><input id="rIcon" maxlength="4" value="🎁"></div>
+<div class="field"><label>COIN COST</label><input id="rCost" type="number" min="1" max="99999" value="25"></div>
+<div class="actions-bottom"><button class="secondary" onclick="closeForm()">Cancel</button><button class="primary" onclick="saveReward()">Save Reward</button></div>
 </div></div>
 
-<div class="modal" id="infoModal"><div class="box"><h2 id="infoTitle"></h2><p id="infoText" style="color:#aab5c7;font-size:13px;line-height:1.5"></p><div class="actions-bottom"><span></span><button class="primary" onclick="closeInfo()">Close</button></div></div></div>
+<div class="modal" id="redeemModal"><div class="box"><h2 id="redeemTitle"></h2><p id="redeemText"></p><div class="actions-bottom"><button class="secondary" onclick="closeRedeem()">Cancel</button><button class="primary" id="redeemBtn">Redeem</button></div></div></div>
 <div class="toast" id="toast"></div>
-
 <script>
-const saveKey="camRpgSave", questKey="camRpgCustomQuests";
+const saveKey="camRpgSave",rewardKey="camRpgRewards";
 const builtIn=[
-{id:"bed",name:"Escape the Bed",icon:"🌅",category:"Daily",type:"recurring",xp:2,coin:2},
-{id:"brush-am",name:"Morning Brush",icon:"🪥",category:"Daily",type:"recurring",xp:2,coin:2},
-{id:"breakfast",name:"Fuel the Adventurer",icon:"🍳",category:"Daily",type:"recurring",xp:3,coin:3},
-{id:"shower",name:"Refresh Yourself",icon:"🧼",category:"Daily",type:"recurring",xp:3,coin:3},
-{id:"clean",name:"Room Reset",icon:"🧹",category:"Daily",type:"recurring",xp:2,coin:2},
-{id:"workout",name:"Training Arc",icon:"💪",category:"Challenge",type:"recurring",xp:5,coin:5},
-{id:"dinner",name:"Refuel",icon:"🍽️",category:"Daily",type:"recurring",xp:3,coin:3},
-{id:"brush-pm",name:"Night Brush",icon:"🌙",category:"Daily",type:"recurring",xp:2,coin:2}
+{id:"drink",name:"Favorite Drink",icon:"🥤",category:"Small",cost:10},
+{id:"snack",name:"Favorite Snack",icon:"🍿",category:"Small",cost:15},
+{id:"gaming",name:"30 Minutes of Gaming",icon:"🎮",category:"Fun",cost:25},
+{id:"movie",name:"Watch a Movie",icon:"🎬",category:"Fun",cost:30},
+{id:"meal",name:"Favorite Meal",icon:"🍔",category:"Big",cost:40},
+{id:"mystery",name:"Mystery Reward",icon:"🎁",category:"Legendary",cost:50}
 ];
-let state={totalXp:0,coins:0,streak:0,totalCompleted:0,done:{},history:[]};
-try{state=Object.assign(state,JSON.parse(localStorage.getItem(saveKey)||"{}"))}catch(e){}
-let custom=[];try{custom=JSON.parse(localStorage.getItem(questKey)||"[]")}catch(e){}
-let editingId=null;
-const all=()=>builtIn.concat(custom);
-const today=()=>new Date().toISOString().slice(0,10);
-function isDone(q){return !!state.done?.[q.id]}
-function saveState(){localStorage.setItem(saveKey,JSON.stringify(state));localStorage.setItem(questKey,JSON.stringify(custom))}
-function complete(id){
- const q=all().find(x=>x.id===id);if(!q||isDone(q))return;
- state.done=state.done||{};state.done[id]=true;state.totalXp=(Number(state.totalXp)||0)+Number(q.xp||0);state.coins=(Number(state.coins)||0)+Number(q.coin||0);state.totalCompleted=(Number(state.totalCompleted)||0)+1;
- state.history=Array.isArray(state.history)?state.history:[];state.history.push({id:q.id,name:q.name,date:today(),xp:q.xp,coin:q.coin});
- saveState();render();toast(`⚔️ Quest complete! +${q.xp} XP · +${q.coin} 🪙`);
-}
-function resetRecurring(){
- state.done=state.done||{};const last=state.questDay;
- if(last!==today()){for(const q of all())if(q.type==="recurring")delete state.done[q.id];state.questDay=today();saveState()}
-}
+let state={coins:0,rewardHistory:[]};try{state=Object.assign(state,JSON.parse(localStorage.getItem(saveKey)||"{}"))}catch(e){}
+let custom=[];try{custom=JSON.parse(localStorage.getItem(rewardKey)||"[]")}catch(e){}
+let editingId=null,pendingId=null;
+function all(){return builtIn.concat(custom)}
+function persist(){localStorage.setItem(saveKey,JSON.stringify(state));localStorage.setItem(rewardKey,JSON.stringify(custom))}
 function render(){
- resetRecurring();
- const cats=[["Daily","📋 Daily Quests"],["Bonus","🌟 Bonus Quests"],["Challenge","⚔️ Challenge Quests"],["Boss","🐉 Boss Quests"]];
- document.getElementById("sections").innerHTML=cats.map(([cat,label])=>{
-   const qs=all().filter(q=>q.category===cat);
-   if(!qs.length)return "";
-   const done=qs.filter(isDone).length;
-   return `<section class="card section" id="sec-${cat}"><div class="section-head" onclick="toggleSection('${cat}')"><h2>${label}</h2><span><span class="count">${done}/${qs.length}</span> <span class="chev">⌄</span></span></div><div class="quest-list">${qs.map(q=>questHTML(q)).join("")}</div></section>`;
- }).join("") || `<section class="card empty">No quests yet. Add your first adventure above!</section>`;
+document.getElementById("coins").textContent=Number(state.coins)||0;
+const cats=[["Small","🍬 Small Rewards"],["Fun","🎮 Fun Rewards"],["Big","✨ Big Rewards"],["Legendary","👑 Legendary Rewards"]];
+document.getElementById("sections").innerHTML=cats.map(([cat,label])=>{const rs=all().filter(r=>r.category===cat);if(!rs.length)return "";return `<section class="card section"><div class="section-head"><h2>${label}</h2><span class="count">${rs.length}</span></div>${rs.map(rewardHTML).join("")}</section>`}).join("");
+const h=Array.isArray(state.rewardHistory)?state.rewardHistory.slice().reverse():[];document.getElementById("historyCount").textContent=h.length;document.getElementById("history").innerHTML=h.length?h.slice(0,10).map(x=>`<div class="history-row"><span>${x.icon||"🎁"} ${esc(x.name)}</span><b>−${x.cost} 🪙</b></div>`).join(""):`<div class="empty">No rewards redeemed yet.</div>`;
 }
-function questHTML(q){
- const d=isDone(q);
- return `<div class="quest ${d?"done-row":""}"><div class="qicon">${q.icon}</div><div><div class="qname ${d?"done-name":""}">${esc(q.name)}</div><div class="qmeta">${q.type==="recurring"?"🔄 Recurring":"📌 One-time"} · ${q.category}</div><div class="rewards">⭐ +${q.xp} XP · 🪙 +${q.coin}</div></div><div class="actions">${d?`<button class="complete done" disabled>✓ Done</button>`:`<button class="complete" onclick="complete('${q.id}')">Complete</button>`}${q.custom?`<button class="edit" onclick="openForm('${q.id}')">Edit</button><button class="delete" onclick="deleteQuest('${q.id}')">×</button>`:""}</div></div>`;
-}
-function openForm(id){
- editingId=id||null;const q=id?custom.find(x=>x.id===id):null;
- document.getElementById("formTitle").textContent=q?"✏️ Edit Quest":"＋ Add Quest";
- document.getElementById("qName").value=q?.name||"";document.getElementById("qCategory").value=q?.category||"Daily";document.getElementById("qIcon").value=q?.icon||"⚔️";document.getElementById("qType").value=q?.type||"recurring";document.getElementById("qXp").value=q?.xp??3;document.getElementById("qCoin").value=q?.coin??3;
- document.getElementById("formModal").classList.add("show");setTimeout(()=>document.getElementById("qName").focus(),100);
-}
+function rewardHTML(r){const can=(Number(state.coins)||0)>=r.cost;return `<div class="reward"><div class="ricon">${r.icon}</div><div><div class="rname">${esc(r.name)}</div><div class="rmeta">${r.category} reward</div><div class="cost">🪙 ${r.cost}</div></div><div class="actions"><button class="redeem" ${can?"":"disabled"} onclick="askRedeem('${r.id}')">Redeem</button>${r.custom?`<button class="edit" onclick="openForm('${r.id}')">Edit</button><button class="delete" onclick="deleteReward('${r.id}')">×</button>`:""}</div></div>`}
+function askRedeem(id){const r=all().find(x=>x.id===id);if(!r)return;pendingId=id;document.getElementById("redeemTitle").textContent="🎁 Redeem Reward?";document.getElementById("redeemText").textContent=`${r.icon} ${r.name} costs ${r.cost} coins. You have ${state.coins} coins. Redeem it for ${r.cost} coins?`;document.getElementById("redeemBtn").onclick=redeem;document.getElementById("redeemModal").classList.add("show")}
+function closeRedeem(){document.getElementById("redeemModal").classList.remove("show");pendingId=null}
+function redeem(){const r=all().find(x=>x.id===pendingId);if(!r||state.coins<r.cost){closeRedeem();toast("You don't have enough coins.");return}state.coins-=r.cost;state.rewardHistory=Array.isArray(state.rewardHistory)?state.rewardHistory:[];state.rewardHistory.push({id:r.id,name:r.name,icon:r.icon,cost:r.cost,date:new Date().toISOString()});persist();closeRedeem();render();toast(`🎉 ${r.name} redeemed! −${r.cost} 🪙`)}
+function openForm(id){editingId=id||null;const r=id?custom.find(x=>x.id===id):null;document.getElementById("formTitle").textContent=r?"✏️ Edit Reward":"＋ Add Reward";document.getElementById("rName").value=r?.name||"";document.getElementById("rCategory").value=r?.category||"Small";document.getElementById("rIcon").value=r?.icon||"🎁";document.getElementById("rCost").value=r?.cost??25;document.getElementById("formModal").classList.add("show");setTimeout(()=>document.getElementById("rName").focus(),100)}
 function closeForm(){document.getElementById("formModal").classList.remove("show");editingId=null}
-function saveQuest(){
- const name=document.getElementById("qName").value.trim();if(!name){toast("Give your quest a name first.");return}
- const obj={id:editingId||("custom-"+Date.now()),name,category:document.getElementById("qCategory").value,icon:document.getElementById("qIcon").value.trim()||"⚔️",type:document.getElementById("qType").value,xp:Math.max(0,Number(document.getElementById("qXp").value)||0),coin:Math.max(0,Number(document.getElementById("qCoin").value)||0),custom:true};
- if(editingId){const i=custom.findIndex(x=>x.id===editingId);if(i>=0)custom[i]=obj}else custom.push(obj);
- saveState();closeForm();render();toast(editingId?"Quest updated!":"Quest added to your adventure!");
-}
-function deleteQuest(id){
- const q=custom.find(x=>x.id===id);if(!q)return;
- if(!confirm(`Delete "${q.name}"?`))return;
- custom=custom.filter(x=>x.id!==id);if(state.done)delete state.done[id];saveState();render();toast("Quest removed.");
-}
-function toggleSection(cat){document.getElementById("sec-"+cat)?.classList.toggle("collapsed")}
+function saveReward(){const name=document.getElementById("rName").value.trim();if(!name){toast("Give your reward a name first.");return}const old=editingId;const obj={id:editingId||"reward-"+Date.now(),name,category:document.getElementById("rCategory").value,icon:document.getElementById("rIcon").value.trim()||"🎁",cost:Math.max(1,Number(document.getElementById("rCost").value)||1),custom:true};if(old){const i=custom.findIndex(x=>x.id===old);if(i>=0)custom[i]=obj}else custom.push(obj);persist();closeForm();render();toast(old?"Reward updated!":"Reward added to your shop!")}
+function deleteReward(id){const r=custom.find(x=>x.id===id);if(!r)return;if(!confirm(`Delete "${r.name}"?`))return;custom=custom.filter(x=>x.id!==id);persist();render();toast("Reward removed.")}
+function info(t,p){document.getElementById("redeemTitle").textContent=t;document.getElementById("redeemText").textContent=p;document.getElementById("redeemBtn").textContent="Close";document.getElementById("redeemBtn").onclick=closeRedeem;document.getElementById("redeemModal").classList.add("show")}
 function toast(t){const x=document.getElementById("toast");x.textContent=t;x.classList.add("show");setTimeout(()=>x.classList.remove("show"),1900)}
-function showInfo(t,p){document.getElementById("infoTitle").textContent=t;document.getElementById("infoText").textContent=p;document.getElementById("infoModal").classList.add("show")}
-function closeInfo(){document.getElementById("infoModal").classList.remove("show")}
 function esc(s){return s.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 render();
-</script>
-</body>
-</html>
+</script></body></html>
