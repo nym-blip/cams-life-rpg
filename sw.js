@@ -1,1 +1,1 @@
-const CACHE="cam-rpg-v17";self.addEventListener("install",e=>self.skipWaiting());self.addEventListener("activate",e=>e.waitUntil(self.clients.claim()));
+const CACHE="cam-rpg-v18";self.addEventListener("install",e=>self.skipWaiting());self.addEventListener("activate",e=>e.waitUntil(self.clients.claim()));
