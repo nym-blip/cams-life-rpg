@@ -1,25 +1,97 @@
-<!doctype html><html><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#07111f"><meta name="apple-mobile-web-app-capable" content="yes">
-<link rel="manifest" href="manifest.json"><title>Cam's Life RPG</title>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07111f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Cam RPG">
+<link rel="manifest" href="manifest.json">
+<title>Cam's Life RPG</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:linear-gradient(#07111f,#050b14);color:#f7f4ea;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",system-ui,sans-serif}
-.app{max-width:720px;margin:auto;padding:8px 10px 90px}.top{height:58px;display:grid;grid-template-columns:48px 1fr 48px;align-items:center;border-bottom:1px solid #29405f;text-align:center}.top button{background:none;border:0;color:#e5b83d;font-size:24px}.top h1{font-size:22px;margin:0}.card{background:#0b1729;border:1px solid #29446a;border-radius:20px;padding:14px;margin-top:10px;box-shadow:0 12px 30px #0004}.hero{display:grid;grid-template-columns:40% 60%;gap:12px;border-color:#d9a52d}.portrait{aspect-ratio:1/1.18;border:3px solid #e5b83d;border-radius:16px;background:#07316e;display:grid;place-items:center;font-size:70px}.name{font-size:38px;font-weight:950}.badge{margin-top:8px;border:2px solid #e5b83d;border-radius:12px;padding:7px;text-align:center;color:#f3d071;font-size:11px;font-weight:900}.xphead{display:flex;justify-content:space-between;margin-top:15px;font-weight:900}.star{color:#ffd14a;font-size:22px}.bar{height:11px;background:#101d31;border:1px solid #31496d;border-radius:99px;margin:7px 0;overflow:hidden}.fill{height:100%;background:#934cff}.center{text-align:center;font-size:12px;color:#cdd3df}.meta{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}.pill{border:1px solid #2f4b72;border-radius:13px;padding:8px;text-align:center;font-weight:900}.pill small{display:block;color:#aab5c7;font-size:10px}.save{text-align:center;color:#38e47d;font-size:11px;margin-top:8px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.section h2{font-size:15px;margin:0 0 8px}.row{display:grid;grid-template-columns:28px 1fr auto;gap:6px;align-items:center;padding:10px 0;border-top:1px solid #1c2e48;font-size:12px}.row:first-child{border-top:0}.icon{font-size:19px}.value{font-weight:950;font-size:15px}.title-head{font-weight:950;margin-bottom:9px}.titles{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.title{min-height:90px;border:1px solid #36557f;border-radius:13px;background:#0c192c;color:#f7f4ea;padding:8px 4px;font-weight:800}.title.equipped{border:2px solid #e5b83d;background:#382d18}.title.locked{opacity:.45}.ti{font-size:23px}.tn{font-size:10px;line-height:1.1}.stars{font-size:10px;color:#dce3ef}.bottom{position:fixed;bottom:0;left:0;right:0;background:#06101c;border-top:1px solid #29405f;padding:7px 8px calc(7px + env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(5,1fr)}.nav{background:none;border:0;color:#91a0b7;font-size:10px;font-weight:800}.nav b{display:block;font-size:20px}.nav.active{color:#f0bf36}
-</style></head><body><div class="app">
-<header class="top"><button>☰</button><h1>👑 Character</h1><button>⚙️</button></header>
-<section class="card hero"><div class="portrait">🧑🏾‍🦱</div><div><div class="name">Cam</div><div class="badge">LEVEL <span id="level">1</span> • <span id="title">BEGINNER ADVENTURER</span></div>
-<div class="xphead"><span><span class="star">★</span> Lifetime XP</span><span id="xp">0 XP</span></div><div class="bar"><div class="fill" id="fill"></div></div><div class="center"><span id="cur">0</span> / 50 XP to next level</div>
-<div class="meta"><div class="pill">🪙 <span id="coins">0</span><small>Coins</small></div><div class="pill">🔥 <span id="streak">0</span><small>Day Streak</small></div></div><div class="save">● Saved</div></div></section>
-<div class="grid"><section class="card section"><h2>📊 ATTRIBUTES</h2><div id="stats"></div></section><section class="card section"><h2>🏆 ADVENTURE STATS</h2><div id="adv"></div></section></div>
-<section class="card"><div class="title-head">👑 TITLES</div><div class="titles" id="titles"></div></section></div>
-<nav class="bottom"><button class="nav">⌂<b>Home</b></button><button class="nav active">●<b>Character</b></button><button class="nav">☷<b>Quests</b></button><button class="nav">♜<b>Shop</b></button><button class="nav">🏆<b>Achievements</b></button></nav>
+.app{max-width:720px;margin:auto;padding:calc(8px + env(safe-area-inset-top)) 10px calc(88px + env(safe-area-inset-bottom))}
+.top{height:58px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #29405f}.greeting{font-size:12px;color:#9aa8bc}.top h1{font-size:25px;margin:2px 0 0;font-weight:950}.top button{background:none;border:0;color:#e5b83d;font-size:23px}
+.card{background:#0b1729;border:1px solid #29446a;border-radius:20px;padding:15px;margin-top:11px;box-shadow:0 12px 30px #0004}
+.hero{border-color:#d9a52d;background:linear-gradient(145deg,#0d1d33,#0a1525)}.hero-top{display:flex;align-items:center;gap:13px}.avatar{width:68px;height:68px;border-radius:17px;border:2px solid #e5b83d;background:#07316e;display:grid;place-items:center;font-size:48px}.hero-name{font-size:25px;font-weight:950}.hero-title{font-size:11px;color:#f0ca62;font-weight:900;margin-top:3px}.xphead{display:flex;justify-content:space-between;margin-top:14px;font-size:13px;font-weight:900}.star{color:#ffd14a;font-size:20px}.bar{height:10px;background:#101d31;border:1px solid #31496d;border-radius:99px;overflow:hidden;margin:6px 0}.fill{height:100%;background:#934cff;transition:.3s}.xpnote{text-align:center;color:#aab5c7;font-size:11px}.meta{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-top:10px}.pill{background:#0a1525;border:1px solid #2d4769;border-radius:12px;padding:9px;text-align:center;font-weight:900;font-size:14px}.pill small{display:block;color:#96a4b8;font-size:10px;margin-top:2px}
+.section-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.section-title h2{margin:0;font-size:17px}.link{background:none;border:0;color:#e5b83d;font-weight:900;font-size:11px}
+.priority{display:flex;align-items:center;gap:11px;padding:11px 0;border-top:1px solid #1c2e48}.priority:first-of-type{border-top:0}.picon{font-size:22px}.ptext{flex:1}.pname{font-weight:850;font-size:13px}.pmeta{font-size:10px;color:#91a0b7;margin-top:3px}.complete{border:0;background:#e5b83d;color:#111923;border-radius:10px;padding:8px 10px;font-size:11px;font-weight:950}.complete.done{background:#33465f;color:#dce4ef}
+.progress{display:grid;grid-template-columns:1fr 1fr;gap:9px}.mini{background:#0a1525;border:1px solid #2b4567;border-radius:15px;padding:12px}.mini .label{font-size:10px;color:#8e9db1}.mini b{font-size:20px;display:block;margin-top:3px}.mini .small{font-size:10px;color:#91a0b7;margin-top:2px}
+.motivation{text-align:center;padding:18px}.motivation .emoji{font-size:29px}.motivation h2{font-size:17px;margin:7px 0 4px}.motivation p{font-size:11px;color:#aab5c7;margin:0;line-height:1.5}
+.save{text-align:center;color:#38e47d;font-size:10px;margin-top:8px}
+.bottom{position:fixed;bottom:0;left:0;right:0;background:#06101c;border-top:1px solid #29405f;padding:7px 8px calc(7px + env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(5,1fr);z-index:4}.nav{background:none;border:0;color:#91a0b7;font-size:10px;font-weight:800}.nav b{display:block;font-size:20px;margin-bottom:2px}.nav.active{color:#f0bf36}
+.toast{position:fixed;left:50%;bottom:92px;transform:translate(-50%,20px);opacity:0;background:#f8f5ec;color:#101722;border-radius:14px;padding:10px 14px;font-weight:900;font-size:13px;z-index:7;transition:.25s}.toast.show{opacity:1;transform:translate(-50%,0)}
+.modal{position:fixed;inset:0;background:#000b;display:none;align-items:center;justify-content:center;padding:20px;z-index:8}.modal.show{display:flex}.modalbox{width:100%;max-width:390px;background:#0b1729;border:1px solid #d9a52d;border-radius:22px;padding:23px;text-align:center}.modalbox h2{margin:0 0 8px}.modalbox p{color:#aab5c7;font-size:13px;line-height:1.45}.modalbox button{border:0;border-radius:12px;padding:11px 18px;background:#d9a52d;color:#101722;font-weight:950}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top">
+<div><div class="greeting" id="greeting">GOOD MORNING, CAM</div><h1>Today's Adventure</h1></div>
+<button onclick="showInfo('Settings','Settings and customization will be connected here.')">⚙️</button>
+</header>
+
+<section class="card hero">
+<div class="hero-top"><div class="avatar">🧑🏾‍🦱</div><div><div class="hero-name">Cam</div><div class="hero-title" id="heroTitle">🌱 BEGINNER ADVENTURER</div></div></div>
+<div class="xphead"><span><span class="star">★</span> LEVEL <span id="level">1</span></span><span id="xp">0 / 50 XP</span></div>
+<div class="bar"><div class="fill" id="fill"></div></div>
+<div class="xpnote"><span id="totalXp">0</span> lifetime XP</div>
+<div class="meta"><div class="pill">🪙 <span id="coins">0</span><small>Coins</small></div><div class="pill">🔥 <span id="streak">0</span><small>Streak</small></div><div class="pill">🏆 <span id="completed">0</span><small>Quests</small></div></div>
+<div class="save">● Save ready</div>
+</section>
+
+<section class="card">
+<div class="section-title"><h2>⚔️ Today's Priorities</h2><button class="link" onclick="showInfo('Quest Log','The full quest list will be connected to this screen next.')">VIEW ALL</button></div>
+<div id="priorities"></div>
+</section>
+
+<section class="card">
+<div class="section-title"><h2>📈 Quick Progress</h2><button class="link" onclick="showInfo('Character','Your full character sheet is available from the Character tab.')">CHARACTER</button></div>
+<div class="progress">
+<div class="mini"><span class="label">XP AVAILABLE</span><b id="availableXp">0</b><span class="small">from today's quests</span></div>
+<div class="mini"><span class="label">COINS AVAILABLE</span><b id="availableCoins">0</b><span class="small">from today's quests</span></div>
+</div>
+</section>
+
+<section class="card motivation"><div class="emoji">⚔️</div><h2 id="message">Ready for today's adventure?</h2><p>Small quests still count. You don't have to finish everything to make progress.</p></section>
+</div>
+
+<nav class="bottom">
+<button class="nav active"><b>⌂</b>Home</button>
+<button class="nav" onclick="go('Character')"><b>●</b>Character</button>
+<button class="nav" onclick="go('Quests')"><b>☷</b>Quests</button>
+<button class="nav" onclick="go('Shop')"><b>♜</b>Shop</button>
+<button class="nav" onclick="go('Achievements')"><b>🏆</b>Achievements</button>
+</nav>
+
+<div class="toast" id="toast"></div>
+<div class="modal" id="modal"><div class="modalbox"><h2 id="modalTitle"></h2><p id="modalText"></p><button onclick="closeModal()">Close</button></div></div>
+
 <script>
-const key="camRpgSave";let s={totalXp:0,coins:0,streak:0,totalCompleted:0,stats:{strength:0,selfcare:0,nutrition:0,environment:0},equippedTitle:"Beginner Adventurer"};try{s=Object.assign(s,JSON.parse(localStorage.getItem(key)||"{}"))}catch(e){}
-const meta={strength:["💪","Strength"],selfcare:["💜","Self-Care"],nutrition:["🍎","Nutrition"],environment:["🏠","Environment"]};
-const ts=[[0,"👑","Beginner Adventurer","★"],[50,"⚔️","Rising Adventurer","★★"],[250,"🛡️","Seasoned Adventurer","★★★"],[500,"🔥","Veteran Adventurer","★★★★"],[1000,"👑","Elite Adventurer","★★★★★"],[2450,"👑","Master Adventurer","★★★★★"]];
-const lvl=Math.floor(s.totalXp/50)+1,cur=s.totalXp%50;document.getElementById("level").textContent=lvl;document.getElementById("xp").textContent=s.totalXp+" XP";document.getElementById("cur").textContent=cur;document.getElementById("fill").style.width=cur*2+"%";document.getElementById("coins").textContent=s.coins;document.getElementById("streak").textContent=s.streak;document.getElementById("title").textContent=(s.equippedTitle||"Beginner Adventurer").toUpperCase();
-document.getElementById("stats").innerHTML=Object.entries(meta).map(([k,v])=>`<div class="row"><div class="icon">${v[0]}</div><div>${v[1]}</div><div class="value">${s.stats[k]||0}</div></div>`).join("");
-document.getElementById("adv").innerHTML=[["📋","Quests Completed",s.totalCompleted],["🔥","Current Streak",s.streak],["🏆","Achievements",s.totalCompleted>0?1:0],["🪙","Coins Earned",s.coins]].map(x=>`<div class="row"><div class="icon">${x[0]}</div><div>${x[1]}</div><div class="value">${x[2]||0}</div></div>`).join("");
-document.getElementById("titles").innerHTML=ts.map(t=>{let u=s.totalXp>=t[0],e=s.equippedTitle===t[2];return `<button class="title ${e?"equipped":""} ${u?"":"locked"}" ${u?`onclick="equip('${t[2]}')"`:"disabled"}><div class="ti">${u?t[1]:"🔒"}</div><div class="tn">${t[2]}</div><div class="stars">${t[3]}</div></button>`}).join("");
-function equip(n){s.equippedTitle=n;localStorage.setItem(key,JSON.stringify(s));location.reload()}
-</script></body></html>
+const key="camRpgSave";
+const quests=[
+{id:"bed",name:"Escape the Bed",icon:"🌅",cat:"Morning",xp:2,coin:2},
+{id:"brush-am",name:"Morning Brush",icon:"🪥",cat:"Self-Care",xp:2,coin:2},
+{id:"breakfast",name:"Fuel the Adventurer",icon:"🍳",cat:"Nutrition",xp:3,coin:3},
+{id:"shower",name:"Refresh Yourself",icon:"🧼",cat:"Self-Care",xp:3,coin:3},
+{id:"clean",name:"Room Reset",icon:"🧹",cat:"Environment",xp:2,coin:2},
+{id:"workout",name:"Training Arc",icon:"💪",cat:"Training",xp:5,coin:5},
+{id:"dinner",name:"Refuel",icon:"🍽️",cat:"Nutrition",xp:3,coin:3},
+{id:"brush-pm",name:"Night Brush",icon:"🌙",cat:"Evening",xp:2,coin:2}];
+let s={totalXp:0,coins:0,streak:0,totalCompleted:0,done:{},equippedTitle:"Beginner Adventurer"};
+try{s=Object.assign(s,JSON.parse(localStorage.getItem(key)||"{}"))}catch(e){}
+const hour=new Date().getHours();document.getElementById("greeting").textContent=hour<12?"GOOD MORNING, CAM":hour<18?"GOOD AFTERNOON, CAM":"GOOD EVENING, CAM";
+const lvl=Math.floor(s.totalXp/50)+1,cur=s.totalXp%50;
+document.getElementById("level").textContent=lvl;document.getElementById("xp").textContent=cur+" / 50 XP";document.getElementById("fill").style.width=cur*2+"%";document.getElementById("totalXp").textContent=s.totalXp;document.getElementById("coins").textContent=s.coins;document.getElementById("streak").textContent=s.streak;document.getElementById("completed").textContent=s.totalCompleted;document.getElementById("heroTitle").textContent="👑 "+(s.equippedTitle||"Beginner Adventurer").toUpperCase();
+const remaining=quests.filter(q=>!s.done?.[q.id]),show=remaining.slice(0,4);
+document.getElementById("availableXp").textContent=remaining.reduce((a,q)=>a+q.xp,0);document.getElementById("availableCoins").textContent=remaining.reduce((a,q)=>a+q.coin,0);
+document.getElementById("priorities").innerHTML=(show.length?show:quests.slice(0,3)).map(q=>`<div class="priority"><div class="picon">${q.icon}</div><div class="ptext"><div class="pname">${q.name}</div><div class="pmeta">${q.cat} · +${q.xp} XP · +${q.coin} 🪙</div></div><button class="complete" onclick="complete('${q.id}')">Complete</button></div>`).join("");
+if(!remaining.length)document.getElementById("message").textContent="🎉 Today's adventure is complete!";
+function complete(id){const q=quests.find(x=>x.id===id);if(!q||s.done?.[id])return;s.done=s.done||{};s.done[id]=true;s.totalXp+=q.xp;s.coins+=q.coin;s.totalCompleted++;localStorage.setItem(key,JSON.stringify(s));toast(`Quest complete! +${q.xp} XP · +${q.coin} 🪙`);setTimeout(()=>location.reload(),650)}
+function go(name){showInfo(name,name+" will be connected to the full app next.")}
+function showInfo(t,p){document.getElementById("modalTitle").textContent=t;document.getElementById("modalText").textContent=p;document.getElementById("modal").classList.add("show")}
+function closeModal(){document.getElementById("modal").classList.remove("show")}
+function toast(t){const x=document.getElementById("toast");x.textContent=t;x.classList.add("show");setTimeout(()=>x.classList.remove("show"),1800)}
+</script>
+</body></html>
