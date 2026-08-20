@@ -1,63 +1,107 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0b1020"><meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Cam RPG">
-<link rel="manifest" href="manifest.json"><title>Cam's Life RPG</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080d1a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Cam RPG">
+<link rel="manifest" href="manifest.json">
+<title>Cam's Life RPG</title>
 <style>
 :root{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",system-ui,sans-serif;color:#f8fafc;background:#080d1a}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top,#1e293b,#0b1020 48%,#050812);min-height:100vh}
-.app{max-width:720px;margin:auto;padding:calc(16px + env(safe-area-inset-top)) 16px calc(28px + env(safe-area-inset-bottom))}
+.app{max-width:720px;margin:auto;padding:calc(16px + env(safe-area-inset-top)) 16px calc(30px + env(safe-area-inset-bottom))}
 .header{text-align:center}.title{font-weight:900;letter-spacing:1px;font-size:25px}.subtitle{color:#94a3b8;font-size:13px;margin-top:4px}
-.card{background:rgba(15,23,42,.88);border:1px solid rgba(148,163,184,.18);border-radius:24px;padding:18px;margin-top:14px;box-shadow:0 16px 35px rgba(0,0,0,.22)}
+.card{background:rgba(15,23,42,.9);border:1px solid rgba(148,163,184,.18);border-radius:24px;padding:18px;margin-top:14px;box-shadow:0 16px 35px rgba(0,0,0,.22)}
 .character{display:grid;grid-template-columns:92px 1fr;gap:16px;align-items:center}.avatar{width:92px;height:92px;border-radius:25px;background:#172554;display:grid;place-items:center;font-size:48px;border:1px solid #334155}
-.level{font-size:13px;color:#94a3b8;letter-spacing:1px}.name{font-size:28px;font-weight:900}.xp{font-size:17px;font-weight:800;margin-top:5px}.bar{height:11px;background:#1e293b;border-radius:99px;overflow:hidden;margin-top:10px}.fill{height:100%;background:#60a5fa;width:0%;transition:width .3s}
-.streak{text-align:center;margin-top:14px;padding:10px;border-radius:15px;background:#111827;font-weight:800}
-h2{font-size:18px;margin:0}.section-sub{color:#64748b;font-size:12px;margin:4px 0 12px}.quest{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid rgba(148,163,184,.1)}.quest:last-child{border-bottom:0}
-.qicon{font-size:22px}.qmain{flex:1}.qname{font-weight:800}.qmeta{font-size:12px;color:#94a3b8;margin-top:3px}.complete{border:0;border-radius:14px;padding:9px 11px;background:#2563eb;color:#fff;font-weight:800}.complete.done{background:#334155}.quest.done .qname{text-decoration:line-through;color:#64748b}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{background:#0b1222;border:1px solid #1e293b;border-radius:17px;padding:13px}.stat b{font-size:22px}.stat span{display:block;color:#94a3b8;font-size:12px;margin-top:2px}
+.level{font-size:13px;color:#94a3b8;letter-spacing:1px}.name{font-size:28px;font-weight:900}.titleline{font-size:12px;color:#60a5fa;font-weight:800;margin-top:2px}
+.xp{font-size:16px;font-weight:800;margin-top:8px}.bar{height:11px;background:#1e293b;border-radius:99px;overflow:hidden;margin-top:9px}.fill{height:100%;background:#60a5fa;transition:width .35s}
+.meta{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.pill{padding:11px;border-radius:15px;background:#111827;text-align:center}.pill b{font-size:18px}.pill span{display:block;color:#94a3b8;font-size:11px;margin-top:2px}
+h2{font-size:18px;margin:0}.sub{color:#64748b;font-size:12px;margin:4px 0 12px}
+.quest{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid rgba(148,163,184,.1)}.quest:last-child{border-bottom:0}.qicon{font-size:22px}.qmain{flex:1}.qname{font-weight:800}.qmeta{font-size:12px;color:#94a3b8;margin-top:3px}.complete{border:0;border-radius:14px;padding:9px 11px;background:#2563eb;color:#fff;font-weight:800}.complete.done{background:#334155}.quest.done .qname{text-decoration:line-through;color:#64748b}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{background:#0b1222;border:1px solid #1e293b;border-radius:17px;padding:13px}.stat b{font-size:22px}.stat span{display:block;color:#94a3b8;font-size:12px;margin-top:2px}.statbar{height:6px;background:#1e293b;border-radius:99px;margin-top:8px;overflow:hidden}.statfill{height:100%;background:#60a5fa}
+.achievement{display:flex;gap:12px;align-items:center;padding:10px 0}.badge{font-size:25px}.locked{opacity:.55}
 .actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}.action{border:1px solid #334155;background:#111827;color:#f8fafc;border-radius:16px;padding:14px;font-weight:800}
-.achievement{display:flex;gap:12px;align-items:center;padding:10px 0}.badge{font-size:25px}
 .reset{width:100%;margin-top:14px;background:transparent;color:#64748b;border:1px solid #1e293b;border-radius:14px;padding:11px}
-.toast{position:fixed;left:50%;bottom:25px;transform:translateX(-50%) translateY(20px);opacity:0;background:#f8fafc;color:#0f172a;padding:12px 16px;border-radius:15px;font-weight:900;transition:.25s;pointer-events:none}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast{position:fixed;left:50%;bottom:25px;transform:translateX(-50%) translateY(25px);opacity:0;background:#f8fafc;color:#0f172a;padding:13px 17px;border-radius:16px;font-weight:900;transition:.25s;z-index:5;white-space:nowrap}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;padding:20px;z-index:4}.modal.show{display:flex}.modalbox{max-width:420px;width:100%;background:#0f172a;border:1px solid #334155;border-radius:26px;padding:25px;text-align:center}.levelup{font-size:36px}.modalbox h2{font-size:26px;margin:8px 0}.modalbox p{color:#94a3b8}.modalbox button{border:0;border-radius:15px;padding:12px 22px;background:#2563eb;color:#fff;font-weight:900}
 </style>
 </head>
-<body><div class="app">
+<body>
+<div class="app">
 <div class="header"><div class="title">⚔️ CAM'S LIFE RPG</div><div class="subtitle">Your life. Your character. Your adventure.</div></div>
-<section class="card"><div class="character"><div class="avatar">🧑‍🎤</div><div><div class="level">ADVENTURER · LEVEL <span id="level">1</span></div><div class="name">Cam</div><div class="xp">⭐ <span id="xp">0</span> / 50 XP</div><div class="bar"><div class="fill" id="fill"></div></div></div></div><div class="streak">🔥 <span id="streak">0</span> day streak</div></section>
-<section class="card"><h2>📜 Active Quests</h2><div class="section-sub">Complete quests to earn XP and coins.</div><div id="quests"></div></section>
-<section class="card"><h2>📊 Character Stats</h2><div class="section-sub">Your everyday actions help your character grow.</div><div class="grid" id="stats"></div></section>
+
+<section class="card">
+<div class="character"><div class="avatar">🧑‍🎤</div><div>
+<div class="level">ADVENTURER · LEVEL <span id="level">1</span></div>
+<div class="name">Cam</div><div class="titleline" id="title">🌱 Beginner Adventurer</div>
+<div class="xp">⭐ <span id="totalXp">0</span> total XP</div>
+<div class="sub" style="margin:3px 0 0"><span id="currentXp">0</span> / 50 XP to next level</div>
+<div class="bar"><div class="fill" id="fill"></div></div></div></div>
+<div class="meta"><div class="pill">🪙 <b id="coins">0</b><span>Coins</span></div><div class="pill">🔥 <b id="streak">0</b><span>Day Streak</span></div></div>
+</section>
+
+<section class="card"><h2>📜 Active Quests</h2><div class="sub">Complete quests to grow your character.</div><div id="quests"></div></section>
+<section class="card"><h2>📊 Character Stats</h2><div class="sub">Everyday actions build your attributes.</div><div class="grid" id="stats"></div></section>
 <section class="card"><h2>🏆 Achievements</h2><div id="achievements"></div></section>
-<section class="card"><h2>🗺️ Adventure</h2><div class="section-sub">More areas will unlock as we build.</div><div class="actions"><button class="action" onclick="alert('Character screen coming next!')">🧑‍🎤 Character</button><button class="action" onclick="alert('Full quest log coming next!')">📜 Quest Log</button><button class="action" onclick="alert('Reward shop coming next!')">🎁 Rewards</button><button class="action" onclick="alert('Achievement collection coming next!')">🏆 Achievements</button></div></section>
-<button class="reset" id="reset">Reset today's quests</button></div><div class="toast" id="toast"></div>
+<section class="card"><h2>🗺️ Adventure</h2><div class="sub">More areas will unlock as Cam grows.</div><div class="actions">
+<button class="action" onclick="info('Character','Your full character sheet is coming next.')">🧑‍🎤 Character</button>
+<button class="action" onclick="info('Quest Log','A full quest history is coming next.')">📜 Quest Log</button>
+<button class="action" onclick="info('Rewards','The reward shop is coming next.')">🎁 Rewards</button>
+<button class="action" onclick="info('Achievements','Your achievement collection is growing!')">🏆 Achievements</button>
+</div></section>
+<button class="reset" id="reset">Reset today's quests</button>
+</div>
+
+<div class="toast" id="toast"></div>
+<div class="modal" id="modal"><div class="modalbox"><div class="levelup">✨</div><h2 id="modalTitle">LEVEL UP!</h2><p id="modalText"></p><button onclick="closeModal()">Continue Adventure</button></div></div>
+
 <script>
 const quests=[
-{id:"bed",name:"Escape the Bed",cat:"🌅 Morning",pts:2,coin:2,stat:null},
-{id:"brush-am",name:"Morning Brush",cat:"🌅 Morning",pts:2,coin:2,stat:"selfcare"},
-{id:"breakfast",name:"Fuel the Adventurer",cat:"🍽️ Nutrition",pts:3,coin:3,stat:"nutrition"},
-{id:"shower",name:"Refresh Yourself",cat:"🧼 Self-Care",pts:3,coin:3,stat:"selfcare"},
-{id:"clean",name:"Room Reset",cat:"🧹 Environment",pts:2,coin:2,stat:"environment"},
-{id:"workout",name:"Training Arc",cat:"💪 Training",pts:5,coin:5,stat:"strength"},
-{id:"dinner",name:"Refuel",cat:"🍽️ Nutrition",pts:3,coin:3,stat:"nutrition"},
-{id:"brush-pm",name:"Night Brush",cat:"🌙 Evening",pts:2,coin:2,stat:"selfcare"}];
-const statsMeta={strength:["💪","Strength"],selfcare:["🧼","Self-Care"],nutrition:["🍽️","Nutrition"],environment:["🧹","Environment"]};
+{id:"bed",name:"Escape the Bed",cat:"🌅 Morning",xp:2,coin:2,stat:null},
+{id:"brush-am",name:"Morning Brush",cat:"🌅 Morning",xp:2,coin:2,stat:"selfcare"},
+{id:"breakfast",name:"Fuel the Adventurer",cat:"🍽️ Nutrition",xp:3,coin:3,stat:"nutrition"},
+{id:"shower",name:"Refresh Yourself",cat:"🧼 Self-Care",xp:3,coin:3,stat:"selfcare"},
+{id:"clean",name:"Room Reset",cat:"🧹 Environment",xp:2,coin:2,stat:"environment"},
+{id:"workout",name:"Training Arc",cat:"💪 Training",xp:5,coin:5,stat:"strength"},
+{id:"dinner",name:"Refuel",cat:"🍽️ Nutrition",xp:3,coin:3,stat:"nutrition"},
+{id:"brush-pm",name:"Night Brush",cat:"🌙 Evening",xp:2,coin:2,stat:"selfcare"}];
+
+const statMeta={strength:["💪","Strength"],selfcare:["🧼","Self-Care"],nutrition:["🍽️","Nutrition"],environment:["🧹","Environment"]};
+const titles=[[50,"⚔️ Rising Adventurer"],[250,"🛡️ Seasoned Adventurer"],[500,"🔥 Veteran Adventurer"],[1000,"👑 Elite Adventurer"],[2450,"👑 Master Adventurer"]];
 const today=new Date().toISOString().slice(0,10);
-let state=JSON.parse(localStorage.getItem("camRpgV2")||"null");
-if(!state||state.date!==today)state={date:today,done:{},coins:0,stats:{strength:0,selfcare:0,nutrition:0,environment:0},streak:state?.streak||0,totalCompleted:state?.totalCompleted||0};
-function totalXP(){return quests.reduce((s,q)=>s+(state.done[q.id]?q.pts:0),0)}
+let state=JSON.parse(localStorage.getItem("camRpgV3")||"null");
+if(!state)state={totalXp:0,coins:0,stats:{strength:0,selfcare:0,nutrition:0,environment:0},done:{},dayKey:today,streak:0,totalCompleted:0,daysCompleted:[]};
+if(state.dayKey!==today){state.done={};state.dayKey=today;}
+
+function level(){return Math.floor(state.totalXp/50)+1}
+function currentXp(){return state.totalXp%50}
+function currentTitle(){let t="🌱 Beginner Adventurer";for(const x of titles)if(state.totalXp>=x[0])t=x[1];return t}
+function save(){localStorage.setItem("camRpgV3",JSON.stringify(state))}
 function render(){
-const xp=totalXP(),level=Math.floor(xp/50)+1,current=xp%50;
-document.getElementById("level").textContent=level;document.getElementById("xp").textContent=current;document.getElementById("fill").style.width=(current*2)+"%";document.getElementById("streak").textContent=state.streak;
-document.getElementById("quests").innerHTML=quests.map(q=>{let d=!!state.done[q.id];return `<div class="quest ${d?"done":""}"><div class="qicon">${d?"✅":"⚔️"}</div><div class="qmain"><div class="qname">${q.name}</div><div class="qmeta">${q.cat} · +${q.pts} XP · +${q.coin} 🪙</div></div><button class="complete ${d?"done":""}" data-id="${q.id}">${d?"Done":"Complete"}</button></div>`}).join("");
+document.getElementById("level").textContent=level();document.getElementById("totalXp").textContent=state.totalXp;
+document.getElementById("currentXp").textContent=currentXp();document.getElementById("fill").style.width=(currentXp()*2)+"%";
+document.getElementById("coins").textContent=state.coins;document.getElementById("streak").textContent=state.streak;document.getElementById("title").textContent=currentTitle();
+document.getElementById("quests").innerHTML=quests.map(q=>{const d=!!state.done[q.id];return `<div class="quest ${d?"done":""}"><div class="qicon">${d?"✅":"⚔️"}</div><div class="qmain"><div class="qname">${q.name}</div><div class="qmeta">${q.cat} · +${q.xp} XP · +${q.coin} 🪙</div></div><button class="complete ${d?"done":""}" data-id="${q.id}">${d?"Done":"Complete"}</button></div>`}).join("");
 document.querySelectorAll("[data-id]").forEach(b=>b.onclick=()=>toggle(b.dataset.id));
-document.getElementById("stats").innerHTML=Object.entries(statsMeta).map(([k,v])=>`<div class="stat">${v[0]} <b>${state.stats[k]}</b><span>${v[1]}</span></div>`).join("");
-const ach=[["🏆","First Quest","Complete your first quest.",state.totalCompleted>=1],["🔥","Consistency","Complete quests on 3 different days.",state.streak>=3],["💪","Training Arc","Earn 10 Strength points.",state.stats.strength>=10],["🧼","Fresh Start","Earn 10 Self-Care points.",state.stats.selfcare>=10]];
-document.getElementById("achievements").innerHTML=ach.map(a=>`<div class="achievement"><div class="badge">${a[3]?a[0]:"🔒"}</div><div><b>${a[1]}</b><div class="qmeta">${a[3]?"Unlocked!":a[2]}</div></div></div>`).join("");
-localStorage.setItem("camRpgV2",JSON.stringify(state));
+document.getElementById("stats").innerHTML=Object.entries(statMeta).map(([k,v])=>{const n=state.stats[k],pct=(n%25)*4;return `<div class="stat">${v[0]} <b>${n}</b><span>${v[1]}</span><div class="statbar"><div class="statfill" style="width:${pct}%"></div></div></div>`}).join("");
+const a=[["🏆","First Quest","Complete your first quest.",state.totalCompleted>=1],["🔥","Consistency","Reach a 3-day streak.",state.streak>=3],["💪","Training Arc","Earn 10 Strength points.",state.stats.strength>=10],["🧼","Fresh Start","Earn 10 Self-Care points.",state.stats.selfcare>=10],["⚔️","Rising Adventurer","Reach Level 2.",state.totalXp>=50],["👑","Master Adventurer","Reach Level 50.",state.totalXp>=2450]];
+document.getElementById("achievements").innerHTML=a.map(x=>`<div class="achievement ${x[3]?"":"locked"}"><div class="badge">${x[3]?x[0]:"🔒"}</div><div><b>${x[1]}</b><div class="qmeta">${x[3]?"Unlocked!":x[2]}</div></div></div>`).join("");save();
 }
-function toast(t){let x=document.getElementById("toast");x.textContent=t;x.classList.add("show");setTimeout(()=>x.classList.remove("show"),1600)}
-function toggle(id){let q=quests.find(x=>x.id===id);if(!q)return;if(state.done[id]){delete state.done[id];state.coins=Math.max(0,state.coins-q.coin);if(q.stat)state.stats[q.stat]=Math.max(0,state.stats[q.stat]-q.pts)}else{state.done[id]=true;state.coins+=q.coin;if(q.stat)state.stats[q.stat]+=q.pts;state.totalCompleted++;toast(`Quest complete! +${q.pts} XP · +${q.coin} 🪙`)}render()}
-document.getElementById("reset").onclick=()=>{if(confirm("Reset today's completed quests?")){state.done={};state.stats={strength:0,selfcare:0,nutrition:0,environment:0};render();}};
-render();if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
-</script></body></html>
+function toast(t){const x=document.getElementById("toast");x.textContent=t;x.classList.add("show");setTimeout(()=>x.classList.remove("show"),1700)}
+function showModal(t,p){document.getElementById("modalTitle").textContent=t;document.getElementById("modalText").textContent=p;document.getElementById("modal").classList.add("show")}
+function closeModal(){document.getElementById("modal").classList.remove("show")}
+function info(t,p){showModal(t,p)}
+function toggle(id){
+const q=quests.find(x=>x.id===id);if(!q)return;
+if(state.done[id]){delete state.done[id];state.totalXp=Math.max(0,state.totalXp-q.xp);state.coins=Math.max(0,state.coins-q.coin);if(q.stat)state.stats[q.stat]=Math.max(0,state.stats[q.stat]-q.xp)}
+else{const before=level();state.done[id]=true;state.totalXp+=q.xp;state.coins+=q.coin;if(q.stat)state.stats[q.stat]+=q.xp;state.totalCompleted++;if(!state.daysCompleted.includes(today))state.daysCompleted.push(today);state.streak=state.daysCompleted.length;if(level()>before)showModal("✨ LEVEL UP!",`Cam reached Level ${level()}! You now have ${state.totalXp} lifetime XP.`);else toast(`Quest complete! +${q.xp} XP · +${q.coin} 🪙`)}
+render();
+}
+document.getElementById("reset").onclick=()=>{if(confirm("Reset today's quests? Lifetime XP, coins, stats, achievements, and streak stay safe.")){for(const q of quests)if(state.done[q.id]){state.totalXp=Math.max(0,state.totalXp-q.xp);state.coins=Math.max(0,state.coins-q.coin);if(q.stat)state.stats[q.stat]=Math.max(0,state.stats[q.stat]-q.xp)}state.done={};render()}};
+render();
+if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
+</script>
+</body></html>
