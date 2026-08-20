@@ -8,90 +8,124 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Cam RPG">
 <link rel="manifest" href="manifest.json">
-<title>Cam's Life RPG</title>
+<title>Cam's Life RPG — Quests</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:linear-gradient(#07111f,#050b14);color:#f7f4ea;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",system-ui,sans-serif}
-.app{max-width:720px;margin:auto;padding:calc(8px + env(safe-area-inset-top)) 10px calc(88px + env(safe-area-inset-bottom))}
-.top{height:58px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #29405f}.greeting{font-size:12px;color:#9aa8bc}.top h1{font-size:25px;margin:2px 0 0;font-weight:950}.top button{background:none;border:0;color:#e5b83d;font-size:23px}
-.card{background:#0b1729;border:1px solid #29446a;border-radius:20px;padding:15px;margin-top:11px;box-shadow:0 12px 30px #0004}
-.hero{border-color:#d9a52d;background:linear-gradient(145deg,#0d1d33,#0a1525)}.hero-top{display:flex;align-items:center;gap:13px}.avatar{width:68px;height:68px;border-radius:17px;border:2px solid #e5b83d;background:#07316e;display:grid;place-items:center;font-size:48px}.hero-name{font-size:25px;font-weight:950}.hero-title{font-size:11px;color:#f0ca62;font-weight:900;margin-top:3px}.xphead{display:flex;justify-content:space-between;margin-top:14px;font-size:13px;font-weight:900}.star{color:#ffd14a;font-size:20px}.bar{height:10px;background:#101d31;border:1px solid #31496d;border-radius:99px;overflow:hidden;margin:6px 0}.fill{height:100%;background:#934cff;transition:.3s}.xpnote{text-align:center;color:#aab5c7;font-size:11px}.meta{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-top:10px}.pill{background:#0a1525;border:1px solid #2d4769;border-radius:12px;padding:9px;text-align:center;font-weight:900;font-size:14px}.pill small{display:block;color:#96a4b8;font-size:10px;margin-top:2px}
-.section-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.section-title h2{margin:0;font-size:17px}.link{background:none;border:0;color:#e5b83d;font-weight:900;font-size:11px}
-.priority{display:flex;align-items:center;gap:11px;padding:11px 0;border-top:1px solid #1c2e48}.priority:first-of-type{border-top:0}.picon{font-size:22px}.ptext{flex:1}.pname{font-weight:850;font-size:13px}.pmeta{font-size:10px;color:#91a0b7;margin-top:3px}.complete{border:0;background:#e5b83d;color:#111923;border-radius:10px;padding:8px 10px;font-size:11px;font-weight:950}.complete.done{background:#33465f;color:#dce4ef}
-.progress{display:grid;grid-template-columns:1fr 1fr;gap:9px}.mini{background:#0a1525;border:1px solid #2b4567;border-radius:15px;padding:12px}.mini .label{font-size:10px;color:#8e9db1}.mini b{font-size:20px;display:block;margin-top:3px}.mini .small{font-size:10px;color:#91a0b7;margin-top:2px}
-.motivation{text-align:center;padding:18px}.motivation .emoji{font-size:29px}.motivation h2{font-size:17px;margin:7px 0 4px}.motivation p{font-size:11px;color:#aab5c7;margin:0;line-height:1.5}
-.save{text-align:center;color:#38e47d;font-size:10px;margin-top:8px}
+.app{max-width:720px;margin:auto;padding:calc(8px + env(safe-area-inset-top)) 10px calc(90px + env(safe-area-inset-bottom))}
+.top{height:58px;display:grid;grid-template-columns:48px 1fr 48px;align-items:center;text-align:center;border-bottom:1px solid #29405f}.top h1{font-size:22px;margin:0}.top button{background:none;border:0;color:#e5b83d;font-size:24px}
+.card{background:#0b1729;border:1px solid #29446a;border-radius:20px;padding:14px;margin-top:11px;box-shadow:0 12px 30px #0004}.intro{border-color:#d9a52d}.intro h2{margin:0;font-size:19px}.intro p{margin:6px 0 0;color:#aab5c7;font-size:12px;line-height:1.4}
+.add{width:100%;margin-top:12px;border:0;border-radius:13px;background:#d9a52d;color:#111923;font-weight:950;padding:12px;font-size:14px}
+.section{padding:12px 14px}.section-head{display:flex;justify-content:space-between;align-items:center;cursor:pointer}.section-head h2{font-size:16px;margin:0}.count{color:#9aa8bc;font-size:11px}.chev{color:#e5b83d;font-size:16px}.collapsed .quest-list{display:none}
+.quest{display:grid;grid-template-columns:34px 1fr auto;gap:8px;align-items:center;padding:12px 0;border-top:1px solid #1c2e48}.quest:first-child{border-top:0}.qicon{font-size:22px;text-align:center}.qname{font-size:13px;font-weight:900}.qmeta{font-size:10px;color:#91a0b7;margin-top:3px}.rewards{font-size:10px;color:#d7c071;margin-top:2px}.actions{display:flex;gap:5px}.complete,.edit,.delete{border:0;border-radius:9px;padding:7px 8px;font-size:10px;font-weight:950}.complete{background:#e5b83d;color:#111923}.complete.done{background:#33465f;color:#dce4ef}.edit{background:#223753;color:#dce4ef}.delete{background:#3a2028;color:#f0b8c2}.done-row{opacity:.72}.done-name{text-decoration:line-through}
+.empty{text-align:center;color:#91a0b7;padding:14px;font-size:12px}
+.modal{position:fixed;inset:0;background:#000b;display:none;align-items:flex-end;justify-content:center;padding:14px;z-index:8}.modal.show{display:flex}.box{width:100%;max-width:560px;background:#0b1729;border:1px solid #d9a52d;border-radius:22px;padding:18px;max-height:90vh;overflow:auto}.box h2{margin:0 0 12px;font-size:19px}.field{margin:10px 0}.field label{display:block;color:#aab5c7;font-size:11px;font-weight:800;margin-bottom:5px}.field input,.field select{width:100%;border:1px solid #36557f;background:#081426;color:#f7f4ea;border-radius:11px;padding:11px;font-size:14px;outline:none}.reward-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.actions-bottom{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}.primary,.secondary{border:0;border-radius:12px;padding:12px;font-weight:950}.primary{background:#d9a52d;color:#111923}.secondary{background:#243954;color:#e5ebf5}
+.toast{position:fixed;left:50%;bottom:94px;transform:translate(-50%,20px);opacity:0;background:#f8f5ec;color:#101722;border-radius:14px;padding:10px 14px;font-weight:900;font-size:13px;z-index:10;transition:.25s;white-space:nowrap}.toast.show{opacity:1;transform:translate(-50%,0)}
 .bottom{position:fixed;bottom:0;left:0;right:0;background:#06101c;border-top:1px solid #29405f;padding:7px 8px calc(7px + env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(5,1fr);z-index:4}.nav{background:none;border:0;color:#91a0b7;font-size:10px;font-weight:800}.nav b{display:block;font-size:20px;margin-bottom:2px}.nav.active{color:#f0bf36}
-.toast{position:fixed;left:50%;bottom:92px;transform:translate(-50%,20px);opacity:0;background:#f8f5ec;color:#101722;border-radius:14px;padding:10px 14px;font-weight:900;font-size:13px;z-index:7;transition:.25s}.toast.show{opacity:1;transform:translate(-50%,0)}
-.modal{position:fixed;inset:0;background:#000b;display:none;align-items:center;justify-content:center;padding:20px;z-index:8}.modal.show{display:flex}.modalbox{width:100%;max-width:390px;background:#0b1729;border:1px solid #d9a52d;border-radius:22px;padding:23px;text-align:center}.modalbox h2{margin:0 0 8px}.modalbox p{color:#aab5c7;font-size:13px;line-height:1.45}.modalbox button{border:0;border-radius:12px;padding:11px 18px;background:#d9a52d;color:#101722;font-weight:950}
+@media(max-width:420px){.actions .edit,.actions .delete{padding:7px 6px}.qname{font-size:12px}}
 </style>
 </head>
 <body>
 <div class="app">
-<header class="top">
-<div><div class="greeting" id="greeting">GOOD MORNING, CAM</div><h1>Today's Adventure</h1></div>
-<button onclick="showInfo('Settings','Settings and customization will be connected here.')">⚙️</button>
-</header>
+<header class="top"><button onclick="showInfo('Home','The Home screen is the daily dashboard.')">⌂</button><h1>⚔️ Quests</h1><button onclick="openForm()">＋</button></header>
 
-<section class="card hero">
-<div class="hero-top"><div class="avatar">🧑🏾‍🦱</div><div><div class="hero-name">Cam</div><div class="hero-title" id="heroTitle">🌱 BEGINNER ADVENTURER</div></div></div>
-<div class="xphead"><span><span class="star">★</span> LEVEL <span id="level">1</span></span><span id="xp">0 / 50 XP</span></div>
-<div class="bar"><div class="fill" id="fill"></div></div>
-<div class="xpnote"><span id="totalXp">0</span> lifetime XP</div>
-<div class="meta"><div class="pill">🪙 <span id="coins">0</span><small>Coins</small></div><div class="pill">🔥 <span id="streak">0</span><small>Streak</small></div><div class="pill">🏆 <span id="completed">0</span><small>Quests</small></div></div>
-<div class="save">● Save ready</div>
+<section class="card intro">
+<h2>Build Your Adventure</h2>
+<p>Complete everyday quests, add your own goals, and earn XP + coins as you go.</p>
+<button class="add" onclick="openForm()">＋ Add Quest</button>
 </section>
 
-<section class="card">
-<div class="section-title"><h2>⚔️ Today's Priorities</h2><button class="link" onclick="showInfo('Quest Log','The full quest list will be connected to this screen next.')">VIEW ALL</button></div>
-<div id="priorities"></div>
-</section>
-
-<section class="card">
-<div class="section-title"><h2>📈 Quick Progress</h2><button class="link" onclick="showInfo('Character','Your full character sheet is available from the Character tab.')">CHARACTER</button></div>
-<div class="progress">
-<div class="mini"><span class="label">XP AVAILABLE</span><b id="availableXp">0</b><span class="small">from today's quests</span></div>
-<div class="mini"><span class="label">COINS AVAILABLE</span><b id="availableCoins">0</b><span class="small">from today's quests</span></div>
-</div>
-</section>
-
-<section class="card motivation"><div class="emoji">⚔️</div><h2 id="message">Ready for today's adventure?</h2><p>Small quests still count. You don't have to finish everything to make progress.</p></section>
+<div id="sections"></div>
 </div>
 
 <nav class="bottom">
-<button class="nav active"><b>⌂</b>Home</button>
-<button class="nav" onclick="go('Character')"><b>●</b>Character</button>
-<button class="nav" onclick="go('Quests')"><b>☷</b>Quests</button>
-<button class="nav" onclick="go('Shop')"><b>♜</b>Shop</button>
-<button class="nav" onclick="go('Achievements')"><b>🏆</b>Achievements</button>
+<button class="nav" onclick="showInfo('Home','Open the Home screen from your deployed app navigation.')"><b>⌂</b>Home</button>
+<button class="nav" onclick="showInfo('Character','Your character sheet is available in the Character screen.')"><b>●</b>Character</button>
+<button class="nav active"><b>☷</b>Quests</button>
+<button class="nav" onclick="showInfo('Shop','The Reward Shop will be connected next.')"><b>♜</b>Shop</button>
+<button class="nav" onclick="showInfo('Achievements','Achievements will be connected next.')"><b>🏆</b>Achievements</button>
 </nav>
 
+<div class="modal" id="formModal"><div class="box">
+<h2 id="formTitle">＋ Add Quest</h2>
+<div class="field"><label>QUEST NAME</label><input id="qName" maxlength="60" placeholder="e.g. Take out the trash"></div>
+<div class="field"><label>CATEGORY</label><select id="qCategory"><option>Daily</option><option>Bonus</option><option>Challenge</option><option>Boss</option></select></div>
+<div class="field"><label>QUEST ICON</label><input id="qIcon" maxlength="4" value="⚔️"></div>
+<div class="field"><label>QUEST TYPE</label><select id="qType"><option value="recurring">🔄 Recurring — resets each day</option><option value="one-time">📌 One-time — stays completed</option></select></div>
+<div class="reward-grid"><div class="field"><label>XP REWARD</label><input id="qXp" type="number" min="0" max="999" value="3"></div><div class="field"><label>COIN REWARD</label><input id="qCoin" type="number" min="0" max="999" value="3"></div></div>
+<div class="actions-bottom"><button class="secondary" onclick="closeForm()">Cancel</button><button class="primary" onclick="saveQuest()">Save Quest</button></div>
+</div></div>
+
+<div class="modal" id="infoModal"><div class="box"><h2 id="infoTitle"></h2><p id="infoText" style="color:#aab5c7;font-size:13px;line-height:1.5"></p><div class="actions-bottom"><span></span><button class="primary" onclick="closeInfo()">Close</button></div></div></div>
 <div class="toast" id="toast"></div>
-<div class="modal" id="modal"><div class="modalbox"><h2 id="modalTitle"></h2><p id="modalText"></p><button onclick="closeModal()">Close</button></div></div>
 
 <script>
-const key="camRpgSave";
-const quests=[
-{id:"bed",name:"Escape the Bed",icon:"🌅",cat:"Morning",xp:2,coin:2},
-{id:"brush-am",name:"Morning Brush",icon:"🪥",cat:"Self-Care",xp:2,coin:2},
-{id:"breakfast",name:"Fuel the Adventurer",icon:"🍳",cat:"Nutrition",xp:3,coin:3},
-{id:"shower",name:"Refresh Yourself",icon:"🧼",cat:"Self-Care",xp:3,coin:3},
-{id:"clean",name:"Room Reset",icon:"🧹",cat:"Environment",xp:2,coin:2},
-{id:"workout",name:"Training Arc",icon:"💪",cat:"Training",xp:5,coin:5},
-{id:"dinner",name:"Refuel",icon:"🍽️",cat:"Nutrition",xp:3,coin:3},
-{id:"brush-pm",name:"Night Brush",icon:"🌙",cat:"Evening",xp:2,coin:2}];
-let s={totalXp:0,coins:0,streak:0,totalCompleted:0,done:{},equippedTitle:"Beginner Adventurer"};
-try{s=Object.assign(s,JSON.parse(localStorage.getItem(key)||"{}"))}catch(e){}
-const hour=new Date().getHours();document.getElementById("greeting").textContent=hour<12?"GOOD MORNING, CAM":hour<18?"GOOD AFTERNOON, CAM":"GOOD EVENING, CAM";
-const lvl=Math.floor(s.totalXp/50)+1,cur=s.totalXp%50;
-document.getElementById("level").textContent=lvl;document.getElementById("xp").textContent=cur+" / 50 XP";document.getElementById("fill").style.width=cur*2+"%";document.getElementById("totalXp").textContent=s.totalXp;document.getElementById("coins").textContent=s.coins;document.getElementById("streak").textContent=s.streak;document.getElementById("completed").textContent=s.totalCompleted;document.getElementById("heroTitle").textContent="👑 "+(s.equippedTitle||"Beginner Adventurer").toUpperCase();
-const remaining=quests.filter(q=>!s.done?.[q.id]),show=remaining.slice(0,4);
-document.getElementById("availableXp").textContent=remaining.reduce((a,q)=>a+q.xp,0);document.getElementById("availableCoins").textContent=remaining.reduce((a,q)=>a+q.coin,0);
-document.getElementById("priorities").innerHTML=(show.length?show:quests.slice(0,3)).map(q=>`<div class="priority"><div class="picon">${q.icon}</div><div class="ptext"><div class="pname">${q.name}</div><div class="pmeta">${q.cat} · +${q.xp} XP · +${q.coin} 🪙</div></div><button class="complete" onclick="complete('${q.id}')">Complete</button></div>`).join("");
-if(!remaining.length)document.getElementById("message").textContent="🎉 Today's adventure is complete!";
-function complete(id){const q=quests.find(x=>x.id===id);if(!q||s.done?.[id])return;s.done=s.done||{};s.done[id]=true;s.totalXp+=q.xp;s.coins+=q.coin;s.totalCompleted++;localStorage.setItem(key,JSON.stringify(s));toast(`Quest complete! +${q.xp} XP · +${q.coin} 🪙`);setTimeout(()=>location.reload(),650)}
-function go(name){showInfo(name,name+" will be connected to the full app next.")}
-function showInfo(t,p){document.getElementById("modalTitle").textContent=t;document.getElementById("modalText").textContent=p;document.getElementById("modal").classList.add("show")}
-function closeModal(){document.getElementById("modal").classList.remove("show")}
-function toast(t){const x=document.getElementById("toast");x.textContent=t;x.classList.add("show");setTimeout(()=>x.classList.remove("show"),1800)}
+const saveKey="camRpgSave", questKey="camRpgCustomQuests";
+const builtIn=[
+{id:"bed",name:"Escape the Bed",icon:"🌅",category:"Daily",type:"recurring",xp:2,coin:2},
+{id:"brush-am",name:"Morning Brush",icon:"🪥",category:"Daily",type:"recurring",xp:2,coin:2},
+{id:"breakfast",name:"Fuel the Adventurer",icon:"🍳",category:"Daily",type:"recurring",xp:3,coin:3},
+{id:"shower",name:"Refresh Yourself",icon:"🧼",category:"Daily",type:"recurring",xp:3,coin:3},
+{id:"clean",name:"Room Reset",icon:"🧹",category:"Daily",type:"recurring",xp:2,coin:2},
+{id:"workout",name:"Training Arc",icon:"💪",category:"Challenge",type:"recurring",xp:5,coin:5},
+{id:"dinner",name:"Refuel",icon:"🍽️",category:"Daily",type:"recurring",xp:3,coin:3},
+{id:"brush-pm",name:"Night Brush",icon:"🌙",category:"Daily",type:"recurring",xp:2,coin:2}
+];
+let state={totalXp:0,coins:0,streak:0,totalCompleted:0,done:{},history:[]};
+try{state=Object.assign(state,JSON.parse(localStorage.getItem(saveKey)||"{}"))}catch(e){}
+let custom=[];try{custom=JSON.parse(localStorage.getItem(questKey)||"[]")}catch(e){}
+let editingId=null;
+const all=()=>builtIn.concat(custom);
+const today=()=>new Date().toISOString().slice(0,10);
+function isDone(q){return !!state.done?.[q.id]}
+function saveState(){localStorage.setItem(saveKey,JSON.stringify(state));localStorage.setItem(questKey,JSON.stringify(custom))}
+function complete(id){
+ const q=all().find(x=>x.id===id);if(!q||isDone(q))return;
+ state.done=state.done||{};state.done[id]=true;state.totalXp=(Number(state.totalXp)||0)+Number(q.xp||0);state.coins=(Number(state.coins)||0)+Number(q.coin||0);state.totalCompleted=(Number(state.totalCompleted)||0)+1;
+ state.history=Array.isArray(state.history)?state.history:[];state.history.push({id:q.id,name:q.name,date:today(),xp:q.xp,coin:q.coin});
+ saveState();render();toast(`⚔️ Quest complete! +${q.xp} XP · +${q.coin} 🪙`);
+}
+function resetRecurring(){
+ state.done=state.done||{};const last=state.questDay;
+ if(last!==today()){for(const q of all())if(q.type==="recurring")delete state.done[q.id];state.questDay=today();saveState()}
+}
+function render(){
+ resetRecurring();
+ const cats=[["Daily","📋 Daily Quests"],["Bonus","🌟 Bonus Quests"],["Challenge","⚔️ Challenge Quests"],["Boss","🐉 Boss Quests"]];
+ document.getElementById("sections").innerHTML=cats.map(([cat,label])=>{
+   const qs=all().filter(q=>q.category===cat);
+   if(!qs.length)return "";
+   const done=qs.filter(isDone).length;
+   return `<section class="card section" id="sec-${cat}"><div class="section-head" onclick="toggleSection('${cat}')"><h2>${label}</h2><span><span class="count">${done}/${qs.length}</span> <span class="chev">⌄</span></span></div><div class="quest-list">${qs.map(q=>questHTML(q)).join("")}</div></section>`;
+ }).join("") || `<section class="card empty">No quests yet. Add your first adventure above!</section>`;
+}
+function questHTML(q){
+ const d=isDone(q);
+ return `<div class="quest ${d?"done-row":""}"><div class="qicon">${q.icon}</div><div><div class="qname ${d?"done-name":""}">${esc(q.name)}</div><div class="qmeta">${q.type==="recurring"?"🔄 Recurring":"📌 One-time"} · ${q.category}</div><div class="rewards">⭐ +${q.xp} XP · 🪙 +${q.coin}</div></div><div class="actions">${d?`<button class="complete done" disabled>✓ Done</button>`:`<button class="complete" onclick="complete('${q.id}')">Complete</button>`}${q.custom?`<button class="edit" onclick="openForm('${q.id}')">Edit</button><button class="delete" onclick="deleteQuest('${q.id}')">×</button>`:""}</div></div>`;
+}
+function openForm(id){
+ editingId=id||null;const q=id?custom.find(x=>x.id===id):null;
+ document.getElementById("formTitle").textContent=q?"✏️ Edit Quest":"＋ Add Quest";
+ document.getElementById("qName").value=q?.name||"";document.getElementById("qCategory").value=q?.category||"Daily";document.getElementById("qIcon").value=q?.icon||"⚔️";document.getElementById("qType").value=q?.type||"recurring";document.getElementById("qXp").value=q?.xp??3;document.getElementById("qCoin").value=q?.coin??3;
+ document.getElementById("formModal").classList.add("show");setTimeout(()=>document.getElementById("qName").focus(),100);
+}
+function closeForm(){document.getElementById("formModal").classList.remove("show");editingId=null}
+function saveQuest(){
+ const name=document.getElementById("qName").value.trim();if(!name){toast("Give your quest a name first.");return}
+ const obj={id:editingId||("custom-"+Date.now()),name,category:document.getElementById("qCategory").value,icon:document.getElementById("qIcon").value.trim()||"⚔️",type:document.getElementById("qType").value,xp:Math.max(0,Number(document.getElementById("qXp").value)||0),coin:Math.max(0,Number(document.getElementById("qCoin").value)||0),custom:true};
+ if(editingId){const i=custom.findIndex(x=>x.id===editingId);if(i>=0)custom[i]=obj}else custom.push(obj);
+ saveState();closeForm();render();toast(editingId?"Quest updated!":"Quest added to your adventure!");
+}
+function deleteQuest(id){
+ const q=custom.find(x=>x.id===id);if(!q)return;
+ if(!confirm(`Delete "${q.name}"?`))return;
+ custom=custom.filter(x=>x.id!==id);if(state.done)delete state.done[id];saveState();render();toast("Quest removed.");
+}
+function toggleSection(cat){document.getElementById("sec-"+cat)?.classList.toggle("collapsed")}
+function toast(t){const x=document.getElementById("toast");x.textContent=t;x.classList.add("show");setTimeout(()=>x.classList.remove("show"),1900)}
+function showInfo(t,p){document.getElementById("infoTitle").textContent=t;document.getElementById("infoText").textContent=p;document.getElementById("infoModal").classList.add("show")}
+function closeInfo(){document.getElementById("infoModal").classList.remove("show")}
+function esc(s){return s.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+render();
 </script>
-</body></html>
+</body>
+</html>
