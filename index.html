@@ -1,65 +1,112 @@
-<!doctype html><html lang="en"><head>
+<!doctype html>
+<html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#07111f"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<link rel="manifest" href="manifest.json"><title>Cam's Life RPG — Achievements</title>
+<link rel="manifest" href="manifest.json"><title>Cam's Life RPG</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:linear-gradient(#07111f,#050b14);color:#f7f4ea;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",system-ui,sans-serif}
 .app{max-width:720px;margin:auto;padding:calc(8px + env(safe-area-inset-top)) 10px calc(90px + env(safe-area-inset-bottom))}
-.top{height:58px;display:grid;grid-template-columns:48px 1fr 48px;align-items:center;text-align:center;border-bottom:1px solid #29405f}.top h1{font-size:22px;margin:0}.top button{background:none;border:0;color:#e5b83d;font-size:24px}
-.card{background:#0b1729;border:1px solid #29446a;border-radius:20px;padding:14px;margin-top:11px;box-shadow:0 12px 30px #0004}
-.summary{border-color:#d9a52d;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}.stat{text-align:center}.stat b{font-size:22px;display:block}.stat small{font-size:10px;color:#91a0b7}
-.section{padding:12px 14px}.section-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px}.section-head h2{font-size:16px;margin:0}.count{color:#91a0b7;font-size:10px}
-.achievement{display:grid;grid-template-columns:50px 1fr auto;gap:10px;align-items:center;border-top:1px solid #1c2e48;padding:12px 0}.achievement:first-child{border-top:0}.badge{width:48px;height:48px;border-radius:15px;display:grid;place-items:center;font-size:27px;background:#13233a;border:1px solid #36557f}.locked{filter:grayscale(1);opacity:.45}.aname{font-size:13px;font-weight:950}.adesc{font-size:10px;color:#91a0b7;margin-top:3px;line-height:1.35}.progress{height:7px;background:#101d31;border:1px solid #31496d;border-radius:99px;overflow:hidden;margin-top:6px}.fill{height:100%;background:#934cff}.reward{font-size:10px;color:#e5c45b;margin-top:4px}.status{font-size:10px;font-weight:950;text-align:right}.unlocked{color:#48e58a}.locked-text{color:#718198}
-.toast{position:fixed;left:50%;bottom:94px;transform:translate(-50%,20px);opacity:0;background:#f8f5ec;color:#101722;border-radius:14px;padding:11px 15px;font-weight:900;font-size:13px;z-index:10;transition:.25s;white-space:nowrap}
-.toast.show{opacity:1;transform:translate(-50%,0)}
+.top{height:58px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #29405f}.top h1{font-size:21px;margin:0}.top button{background:none;border:0;color:#e5b83d;font-size:22px}
+.screen{display:none}.screen.active{display:block}
+.card{background:#0b1729;border:1px solid #29446a;border-radius:20px;padding:14px;margin-top:11px;box-shadow:0 12px 30px #0004}.gold{border-color:#d9a52d}
+.hero{display:flex;gap:13px;align-items:center}.avatar{width:70px;height:70px;border-radius:18px;background:#07316e;border:2px solid #e5b83d;display:grid;place-items:center;font-size:49px}.name{font-size:25px;font-weight:950}.title{font-size:10px;color:#f0ca62;font-weight:900;margin-top:3px}
+.xprow{display:flex;justify-content:space-between;font-size:12px;font-weight:900;margin-top:13px}.star{color:#ffd14a;font-size:18px}.bar{height:9px;background:#101d31;border:1px solid #31496d;border-radius:99px;overflow:hidden;margin:5px 0}.fill{height:100%;background:#934cff}.muted{color:#91a0b7;font-size:10px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:10px}.stat{background:#0a1525;border:1px solid #2d4769;border-radius:12px;padding:9px;text-align:center;font-weight:900;font-size:14px}.stat small{display:block;color:#91a0b7;font-size:9px;margin-top:2px}
+.section-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px}.section-head h2{font-size:16px;margin:0}.link{background:none;border:0;color:#e5b83d;font-weight:900;font-size:10px}
+.quest,.reward,.ach{display:grid;grid-template-columns:38px 1fr auto;gap:9px;align-items:center;border-top:1px solid #1c2e48;padding:11px 0}.quest:first-child,.reward:first-child,.ach:first-child{border-top:0}.icon{font-size:22px;text-align:center}.qname,.rname,.aname{font-size:12px;font-weight:900}.meta,.adesc{font-size:10px;color:#91a0b7;margin-top:3px}.rewardtxt{font-size:10px;color:#e5c45b;margin-top:3px}.btn{border:0;border-radius:9px;padding:8px 9px;font-size:10px;font-weight:950;background:#e5b83d;color:#111923}.btn.secondary{background:#223753;color:#dce4ef}.btn.danger{background:#3a2028;color:#f0b8c2}.btn:disabled{background:#263953;color:#718198}
+.add{width:100%;border:0;border-radius:12px;background:#d9a52d;color:#111923;font-weight:950;padding:11px;margin-top:8px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px}.mini{background:#0a1525;border:1px solid #2b4567;border-radius:15px;padding:12px}.mini b{display:block;font-size:20px;margin-top:3px}.mini small{color:#91a0b7;font-size:9px}
+.progress{height:7px;background:#101d31;border:1px solid #31496d;border-radius:99px;overflow:hidden;margin-top:5px}.progress div{height:100%;background:#934cff}
+.empty{text-align:center;color:#91a0b7;font-size:12px;padding:15px}
 .bottom{position:fixed;bottom:0;left:0;right:0;background:#06101c;border-top:1px solid #29405f;padding:7px 8px calc(7px + env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(5,1fr);z-index:4}.nav{background:none;border:0;color:#91a0b7;font-size:10px;font-weight:800}.nav b{display:block;font-size:20px;margin-bottom:2px}.nav.active{color:#f0bf36}
-.modal{position:fixed;inset:0;background:#000b;display:none;align-items:center;justify-content:center;padding:18px;z-index:8}.modal.show{display:flex}.box{width:100%;max-width:390px;background:#0b1729;border:1px solid #d9a52d;border-radius:22px;padding:22px;text-align:center}.box .big{font-size:48px}.box h2{margin:8px 0 5px;font-size:20px}.box p{color:#aab5c7;font-size:12px;line-height:1.5}.box button{border:0;border-radius:12px;padding:11px 20px;background:#d9a52d;color:#111923;font-weight:950}
-</style></head><body><div class="app">
-<header class="top"><button onclick="info('Home','Home will be connected to the complete app navigation.')">⌂</button><h1>🏆 Achievements</h1><button onclick="info('About Achievements','Achievements track long-term progress across your entire adventure.')">ⓘ</button></header>
-<section class="card summary"><div class="stat"><b id="unlocked">0</b><small>Unlocked</small></div><div class="stat"><b id="total">8</b><small>Total</small></div><div class="stat"><b>🪙 <span id="earned">0</span></b><small>Bonus Coins Earned</small></div></section>
-<div id="sections"></div>
+.modal{position:fixed;inset:0;background:#000b;display:none;align-items:flex-end;justify-content:center;padding:14px;z-index:8}.modal.show{display:flex}.box{width:100%;max-width:560px;background:#0b1729;border:1px solid #d9a52d;border-radius:22px;padding:18px;max-height:90vh;overflow:auto}.box h2{margin:0 0 12px}.field{margin:10px 0}.field label{display:block;color:#aab5c7;font-size:10px;font-weight:800;margin-bottom:5px}.field input,.field select{width:100%;border:1px solid #36557f;background:#081426;color:#f7f4ea;border-radius:11px;padding:10px;font-size:14px}.modal-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:13px}
+.toast{position:fixed;left:50%;bottom:94px;transform:translate(-50%,20px);opacity:0;background:#f8f5ec;color:#101722;border-radius:14px;padding:10px 14px;font-weight:900;font-size:13px;z-index:12;transition:.25s;white-space:nowrap}.toast.show{opacity:1;transform:translate(-50%,0)}
+</style></head><body>
+<div class="app">
+<header class="top"><h1 id="topTitle">⌂ Today's Adventure</h1><button onclick="openInfo('Cam\\'s Life RPG','Your progress is stored on this device using local storage.')">ⓘ</button></header>
+
+<section id="home" class="screen active">
+<div class="card gold"><div class="hero"><div class="avatar">🧑🏾‍🦱</div><div><div class="name">Cam</div><div class="title" id="homeTitle">👑 BEGINNER ADVENTURER</div></div></div><div class="xprow"><span><span class="star">★</span> LEVEL <span id="hLevel">1</span></span><span id="hXp">0 / 50 XP</span></div><div class="bar"><div class="fill" id="hFill"></div></div><div class="muted" style="text-align:center"><span id="hTotalXp">0</span> lifetime XP</div><div class="stats"><div class="stat">🪙 <span id="hCoins">0</span><small>Coins</small></div><div class="stat">🔥 <span id="hStreak">0</span><small>Streak</small></div><div class="stat">🏆 <span id="hDone">0</span><small>Quests</small></div></div></div>
+<div class="card"><div class="section-head"><h2>⚔️ Today's Priorities</h2><button class="link" onclick="show('quests')">VIEW ALL</button></div><div id="homeQuests"></div></div>
+<div class="card"><div class="section-head"><h2>📈 Quick Progress</h2><button class="link" onclick="show('character')">CHARACTER</button></div><div class="grid2"><div class="mini"><small>XP AVAILABLE</small><b id="hAvailXp">0</b></div><div class="mini"><small>COINS AVAILABLE</small><b id="hAvailCoins">0</b></div></div></div>
+<div class="card" style="text-align:center"><div style="font-size:28px">⚔️</div><b id="homeMessage">Ready for today's adventure?</b><div class="muted" style="margin-top:5px">Small quests still count. You don't have to finish everything.</div></div>
+</section>
+
+<section id="character" class="screen">
+<div class="card gold" style="text-align:center"><div class="avatar" style="margin:auto">🧑🏾‍🦱</div><div class="name" style="margin-top:8px">Cam</div><div class="title" id="cTitle">👑 BEGINNER ADVENTURER</div><div class="xprow"><span>★ LEVEL <span id="cLevel">1</span></span><span id="cXp">0 / 50 XP</span></div><div class="bar"><div class="fill" id="cFill"></div></div></div>
+<div class="card"><div class="section-head"><h2>📊 Adventure Stats</h2></div><div class="stats"><div class="stat">⭐ <span id="cTotalXp">0</span><small>Total XP</small></div><div class="stat">🪙 <span id="cCoins">0</span><small>Coins</small></div><div class="stat">🔥 <span id="cStreak">0</span><small>Streak</small></div></div></div>
+<div class="card"><div class="section-head"><h2>📜 Equipped Title</h2></div><div style="text-align:center;font-size:18px" id="titleDisplay">👑 Beginner Adventurer</div><div class="muted" style="text-align:center;margin-top:5px">More titles can be unlocked as the RPG grows.</div></div>
+</section>
+
+<section id="quests" class="screen"><div class="card gold"><div class="section-head"><h2>⚔️ Quest Log</h2><span class="muted">Earn XP + coins</span></div><button class="add" onclick="openQuest()">＋ Add Quest</button></div><div id="questSections"></div></section>
+
+<section id="shop" class="screen"><div class="card wallet gold" style="display:flex;justify-content:space-between;align-items:center"><div><div class="muted">YOUR WALLET</div><b>Coins available</b></div><div style="font-size:28px;font-weight:950;color:#f3cf63">🪙 <span id="sCoins">0</span></div></div><button class="add" onclick="openReward()">＋ Add Reward</button><div id="shopSections"></div><div class="card"><div class="section-head"><h2>🧾 Redemption History</h2><span class="muted" id="historyCount">0</span></div><div id="history"></div></div></section>
+
+<section id="achievements" class="screen"><div class="card summary gold"><div class="stats"><div class="stat"><b id="aUnlocked">0</b><small>Unlocked</small></div><div class="stat"><b>8</b><small>Total</small></div><div class="stat"><b id="aEarned">0</b><small>Bonus Coins</small></div></div></div><div class="card"><div class="section-head"><h2>🏆 Achievements</h2></div><div id="achList"></div></div></section>
 </div>
-<nav class="bottom"><button class="nav" onclick="info('Home','Home will be connected to the complete app navigation.')"><b>⌂</b>Home</button><button class="nav" onclick="info('Character','Your character sheet is available from the Character screen.')"><b>●</b>Character</button><button class="nav" onclick="info('Quests','Your quest system is available from the Quests screen.')"><b>☷</b>Quests</button><button class="nav" onclick="info('Shop','Your Reward Shop is available from the Shop screen.')"><b>♜</b>Shop</button><button class="nav active"><b>🏆</b>Achievements</button></nav>
-<div class="modal" id="modal"><div class="box"><div class="big" id="mIcon">🏆</div><h2 id="mTitle"></h2><p id="mText"></p><button onclick="closeModal()">Continue</button></div></div>
+
+<nav class="bottom"><button class="nav active" data-screen="home" onclick="show('home')"><b>⌂</b>Home</button><button class="nav" data-screen="character" onclick="show('character')"><b>●</b>Character</button><button class="nav" data-screen="quests" onclick="show('quests')"><b>☷</b>Quests</button><button class="nav" data-screen="shop" onclick="show('shop')"><b>♜</b>Shop</button><button class="nav" data-screen="achievements" onclick="show('achievements')"><b>🏆</b>Achievements</button></nav>
+
+<div class="modal" id="modal"><div class="box"><h2 id="mTitle"></h2><div id="mBody"></div><div class="modal-actions"><button class="btn secondary" onclick="closeModal()">Cancel</button><button class="btn" id="mPrimary">Save</button></div></div></div>
 <div class="toast" id="toast"></div>
+
 <script>
-const saveKey="camRpgSave",achKey="camRpgAchievements";
+const SAVE="camRpgSave",CUSTOM_Q="camRpgCustomQuests",CUSTOM_R="camRpgRewards",ACH="camRpgAchievements";
+const builtInQ=[
+{id:"bed",name:"Escape the Bed",icon:"🌅",category:"Daily",type:"recurring",xp:2,coin:2},
+{id:"brush-am",name:"Morning Brush",icon:"🪥",category:"Daily",type:"recurring",xp:2,coin:2},
+{id:"breakfast",name:"Fuel the Adventurer",icon:"🍳",category:"Daily",type:"recurring",xp:3,coin:3},
+{id:"shower",name:"Refresh Yourself",icon:"🧼",category:"Daily",type:"recurring",xp:3,coin:3},
+{id:"clean",name:"Room Reset",icon:"🧹",category:"Daily",type:"recurring",xp:2,coin:2},
+{id:"workout",name:"Training Arc",icon:"💪",category:"Challenge",type:"recurring",xp:5,coin:5},
+{id:"dinner",name:"Refuel",icon:"🍽️",category:"Daily",type:"recurring",xp:3,coin:3},
+{id:"brush-pm",name:"Night Brush",icon:"🌙",category:"Daily",type:"recurring",xp:2,coin:2}];
+const builtInR=[
+{id:"drink",name:"Favorite Drink",icon:"🥤",category:"Small",cost:10},
+{id:"snack",name:"Favorite Snack",icon:"🍿",category:"Small",cost:15},
+{id:"gaming",name:"30 Minutes of Gaming",icon:"🎮",category:"Fun",cost:25},
+{id:"movie",name:"Watch a Movie",icon:"🎬",category:"Fun",cost:30},
+{id:"meal",name:"Favorite Meal",icon:"🍔",category:"Big",cost:40},
+{id:"mystery",name:"Mystery Reward",icon:"🎁",category:"Legendary",cost:50}];
 const defs=[
 {id:"starter",name:"Getting Started",icon:"🌱",desc:"Complete your first quest.",target:1,reward:5,metric:"quests"},
 {id:"adventurer",name:"Adventurer",icon:"⚔️",desc:"Complete 10 quests.",target:10,reward:15,metric:"quests"},
 {id:"roll",name:"On a Roll",icon:"🔥",desc:"Reach a 3-day streak.",target:3,reward:20,metric:"streak"},
 {id:"unstoppable",name:"Unstoppable",icon:"🔥🔥",desc:"Reach a 7-day streak.",target:7,reward:50,metric:"streak"},
-{id:"treasure",name:"Treasure Hunter",icon:"💰",desc:"Earn 100 coins from quests and achievements.",target:100,reward:25,metric:"earnedCoins"},
+{id:"treasure",name:"Treasure Hunter",icon:"💰",desc:"Earn 100 coins.",target:100,reward:25,metric:"earnedCoins"},
 {id:"purchase",name:"First Purchase",icon:"🛍️",desc:"Redeem your first reward.",target:1,reward:10,metric:"purchases"},
 {id:"boss",name:"Boss Slayer",icon:"🐉",desc:"Complete your first Boss Quest.",target:1,reward:30,metric:"boss"},
-{id:"legend",name:"RPG Legend",icon:"👑",desc:"Reach Level 10.",target:10,reward:100,metric:"level"}
-];
-let state={totalXp:0,coins:0,streak:0,totalCompleted:0,history:[],rewardHistory:[]};
-try{state=Object.assign(state,JSON.parse(localStorage.getItem(saveKey)||"{}"))}catch(e){}
-let achState={unlocked:{},earnedCoins:0};try{achState=Object.assign(achState,JSON.parse(localStorage.getItem(achKey)||"{}"))}catch(e){}
-const xp=Number(state.totalXp)||0,level=Math.floor(xp/50)+1;
-function metric(a){
-if(a.metric==="quests")return Number(state.totalCompleted)||0;
-if(a.metric==="streak")return Number(state.streak)||0;
-if(a.metric==="earnedCoins")return (Number(state.totalCoinsEarned)||0);
-if(a.metric==="purchases")return Array.isArray(state.rewardHistory)?state.rewardHistory.length:0;
-if(a.metric==="boss"){return Array.isArray(state.history)?state.history.filter(x=>x.category==="Boss"||x.type==="boss").length:0}
-if(a.metric==="level")return level;return 0;
-}
-function check(){
-let newly=[];
-for(const a of defs){const v=metric(a);if(v>=a.target&&!achState.unlocked[a.id]){achState.unlocked[a.id]=new Date().toISOString();achState.earnedCoins=(Number(achState.earnedCoins)||0)+a.reward;state.coins=(Number(state.coins)||0)+a.reward;newly.push(a)}}
-if(newly.length){localStorage.setItem(saveKey,JSON.stringify(state));localStorage.setItem(achKey,JSON.stringify(achState));setTimeout(()=>celebrate(newly[0]),150)}
-else{localStorage.setItem(achKey,JSON.stringify(achState))}
-}
-function render(){
-check();const u=defs.filter(a=>achState.unlocked[a.id]).length;document.getElementById("unlocked").textContent=u;document.getElementById("total").textContent=defs.length;document.getElementById("earned").textContent=achState.earnedCoins||0;
-document.getElementById("sections").innerHTML=`<section class="card section"><div class="section-head"><h2>🏆 Your Achievements</h2><span class="count">${u}/${defs.length}</span></div>${defs.map(a=>html(a)).join("")}</section>`;
-}
-function html(a){const v=Math.min(metric(a),a.target),done=!!achState.unlocked[a.id],pct=Math.round(v/a.target*100);return `<div class="achievement"><div class="badge ${done?"":"locked"}">${done?a.icon:"🔒"}</div><div><div class="aname">${a.name}</div><div class="adesc">${a.desc}</div><div class="progress"><div class="fill" style="width:${pct}%"></div></div><div class="reward">🪙 +${a.reward} bonus coins · ${v}/${a.target}</div></div><div class="status ${done?"unlocked":"locked-text"}">${done?"✓ UNLOCKED":"LOCKED"}</div></div>`}
-function celebrate(a){document.getElementById("mIcon").textContent=a.icon;document.getElementById("mTitle").textContent="Achievement Unlocked!";document.getElementById("mText").innerHTML=`<strong>${a.name}</strong><br>${a.desc}<br><br><b>+${a.reward} 🪙 bonus coins</b>`;document.getElementById("modal").classList.add("show")}
-function closeModal(){document.getElementById("modal").classList.remove("show")}
-function info(t,p){document.getElementById("mIcon").textContent="🏆";document.getElementById("mTitle").textContent=t;document.getElementById("mText").textContent=p;document.getElementById("modal").classList.add("show")}
-function toast(t){const x=document.getElementById("toast");x.textContent=t;x.classList.add("show");setTimeout(()=>x.classList.remove("show"),1800)}
-render();
+{id:"legend",name:"RPG Legend",icon:"👑",desc:"Reach Level 10.",target:10,reward:100,metric:"level"}];
+let state={totalXp:0,coins:0,streak:0,totalCompleted:0,done:{},history:[],rewardHistory:[],totalCoinsEarned:0,questDay:""};
+try{state=Object.assign(state,JSON.parse(localStorage.getItem(SAVE)||"{}"))}catch(e){}
+let customQ=[],customR=[],achState={unlocked:{},earnedCoins:0};try{customQ=JSON.parse(localStorage.getItem(CUSTOM_Q)||"[]")}catch(e){}try{customR=JSON.parse(localStorage.getItem(CUSTOM_R)||"[]")}catch(e){}try{achState=Object.assign(achState,JSON.parse(localStorage.getItem(ACH)||"{}"))}catch(e){}
+let editing=null,formMode=null,pendingReward=null;
+function qs(){return builtInQ.concat(customQ)}function rs(){return builtInR.concat(customR)}
+function persist(){localStorage.setItem(SAVE,JSON.stringify(state));localStorage.setItem(CUSTOM_Q,JSON.stringify(customQ));localStorage.setItem(CUSTOM_R,JSON.stringify(customR));localStorage.setItem(ACH,JSON.stringify(achState))}
+function today(){return new Date().toISOString().slice(0,10)}
+function resetDaily(){if(state.questDay!==today()){for(const q of qs())if(q.type==="recurring")delete state.done?.[q.id];state.questDay=today();persist()}}
+function completeQuest(id){resetDaily();const q=qs().find(x=>x.id===id);if(!q||state.done?.[id])return;state.done=state.done||{};state.done[id]=true;state.totalXp=(+state.totalXp||0)+q.xp;state.coins=(+state.coins||0)+q.coin;state.totalCoinsEarned=(+state.totalCoinsEarned||0)+q.coin;state.totalCompleted=(+state.totalCompleted||0)+1;state.history=Array.isArray(state.history)?state.history:[];state.history.push({id:q.id,name:q.name,xp:q.xp,coin:q.coin,date:today(),category:q.category,type:q.type});updateStreak();checkAchievements();persist();renderAll();toast(`⚔️ ${q.name} complete! +${q.xp} XP · +${q.coin} 🪙`)}
+function updateStreak(){const last=state.lastQuestDate;const t=today();if(last===t)return;if(last){const d=(new Date(t)-new Date(last))/86400000;if(d===1)state.streak=(+state.streak||0)+1;else state.streak=1}else state.streak=1;state.lastQuestDate=t}
+function checkAchievements(){for(const a of defs){const v=metric(a);if(v>=a.target&&!achState.unlocked[a.id]){achState.unlocked[a.id]=new Date().toISOString();achState.earnedCoins=(+achState.earnedCoins||0)+a.reward;state.coins=(+state.coins||0)+a.reward;state.totalCoinsEarned=(+state.totalCoinsEarned||0)+a.reward;setTimeout(()=>toast(`🏆 ${a.name} unlocked! +${a.reward} 🪙`),300)}}}
+function metric(a){if(a.metric==="quests")return +state.totalCompleted||0;if(a.metric==="streak")return +state.streak||0;if(a.metric==="earnedCoins")return +state.totalCoinsEarned||0;if(a.metric==="purchases")return Array.isArray(state.rewardHistory)?state.rewardHistory.length:0;if(a.metric==="boss")return Array.isArray(state.history)?state.history.filter(x=>x.category==="Boss").length:0;if(a.metric==="level")return Math.floor((+state.totalXp||0)/50)+1;return 0}
+function renderAll(){resetDaily();const xp=+state.totalXp||0,lvl=Math.floor(xp/50)+1,cur=xp%50;for(const id of ["h","c"]){document.getElementById(id+"Level").textContent=lvl;document.getElementById(id+"Xp").textContent=`${cur} / 50 XP`;document.getElementById(id+"Fill").style.width=(cur*2)+"%"}document.getElementById("hTotalXp").textContent=xp;document.getElementById("hCoins").textContent=state.coins;document.getElementById("hStreak").textContent=state.streak;document.getElementById("hDone").textContent=state.totalCompleted;document.getElementById("cTotalXp").textContent=xp;document.getElementById("cCoins").textContent=state.coins;document.getElementById("cStreak").textContent=state.streak;document.getElementById("homeTitle").textContent="👑 "+(state.equippedTitle||"BEGINNER ADVENTURER").toUpperCase();document.getElementById("cTitle").textContent="👑 "+(state.equippedTitle||"BEGINNER ADVENTURER").toUpperCase();document.getElementById("titleDisplay").textContent="👑 "+(state.equippedTitle||"Beginner Adventurer");renderHome();renderQuests();renderShop();renderAchievements()}
+function renderHome(){const rem=qs().filter(q=>!state.done?.[q.id]);document.getElementById("hAvailXp").textContent=rem.reduce((a,q)=>a+q.xp,0);document.getElementById("hAvailCoins").textContent=rem.reduce((a,q)=>a+q.coin,0);document.getElementById("homeMessage").textContent=rem.length?"Ready for today's adventure?":"🎉 Today's adventure is complete!";document.getElementById("homeQuests").innerHTML=(rem.slice(0,4).length?rem.slice(0,4):qs().slice(0,3)).map(q=>questHTML(q)).join("")}
+function questHTML(q){const d=!!state.done?.[q.id];return `<div class="quest"><div class="icon">${q.icon}</div><div><div class="qname">${esc(q.name)}</div><div class="meta">${q.category} · ${q.type==="recurring"?"🔄 recurring":"📌 one-time"}</div><div class="rewardtxt">⭐ +${q.xp} · 🪙 +${q.coin}</div></div><button class="btn" ${d?"disabled":""} onclick="completeQuest('${q.id}')">${d?"✓ Done":"Complete"}</button></div>`}
+function renderQuests(){const cats=[["Daily","📋 Daily Quests"],["Bonus","🌟 Bonus Quests"],["Challenge","⚔️ Challenge Quests"],["Boss","🐉 Boss Quests"]];document.getElementById("questSections").innerHTML=cats.map(([c,l])=>{const x=qs().filter(q=>q.category===c);if(!x.length)return "";return `<div class="card"><div class="section-head"><h2>${l}</h2><span class="muted">${x.filter(q=>state.done?.[q.id]).length}/${x.length}</span></div>${x.map(questHTML).join("")}</div>`}).join("")}
+function renderShop(){document.getElementById("sCoins").textContent=state.coins;const cats=[["Small","🍬 Small"],["Fun","🎮 Fun"],["Big","✨ Big"],["Legendary","👑 Legendary"]];document.getElementById("shopSections").innerHTML=cats.map(([c,l])=>{const x=rs().filter(r=>r.category===c);if(!x.length)return "";return `<div class="card"><div class="section-head"><h2>${l}</h2></div>${x.map(r=>rewardHTML(r)).join("")}</div>`}).join("");const h=(state.rewardHistory||[]).slice().reverse();document.getElementById("historyCount").textContent=h.length;document.getElementById("history").innerHTML=h.length?h.slice(0,10).map(x=>`<div class="reward"><div class="icon">${x.icon}</div><div><div class="rname">${esc(x.name)}</div><div class="meta">${x.date||""}</div></div><div class="rewardtxt">−${x.cost} 🪙</div></div>`).join(""):`<div class="empty">No rewards redeemed yet.</div>`}
+function rewardHTML(r){return `<div class="reward"><div class="icon">${r.icon}</div><div><div class="rname">${esc(r.name)}</div><div class="meta">${r.category} reward</div><div class="rewardtxt">🪙 ${r.cost}</div></div><div><button class="btn" ${state.coins<r.cost?"disabled":""} onclick="redeemAsk('${r.id}')">Redeem</button>${r.custom?`<br><button class="btn secondary" style="margin-top:4px" onclick="openReward('${r.id}')">Edit</button>`:""}</div></div>`}
+function redeemAsk(id){const r=rs().find(x=>x.id===id);if(!r)return;pendingReward=r;openInfo("Redeem Reward",`${r.icon} ${r.name}<br><br>Cost: <b>${r.cost} 🪙</b><br>You have ${state.coins} 🪙`,()=>redeem())}
+function redeem(){const r=pendingReward;if(!r||state.coins<r.cost){closeModal();return}state.coins-=r.cost;state.rewardHistory=Array.isArray(state.rewardHistory)?state.rewardHistory:[];state.rewardHistory.push({id:r.id,name:r.name,icon:r.icon,cost:r.cost,date:today()});checkAchievements();persist();closeModal();renderAll();toast(`🎉 ${r.name} redeemed! −${r.cost} 🪙`)}
+function openQuest(id){editing=id||null;formMode="quest";const q=id?customQ.find(x=>x.id===id):null;showForm("＋ Add Quest",`<div class="field"><label>QUEST NAME</label><input id="fName" value="${q?esc(q.name):""}"></div><div class="field"><label>CATEGORY</label><select id="fCat"><option ${q?.category==="Daily"?"selected":""}>Daily</option><option ${q?.category==="Bonus"?"selected":""}>Bonus</option><option ${q?.category==="Challenge"?"selected":""}>Challenge</option><option ${q?.category==="Boss"?"selected":""}>Boss</option></select></div><div class="field"><label>ICON</label><input id="fIcon" value="${q?.icon||"⚔️"}"></div><div class="field"><label>TYPE</label><select id="fType"><option value="recurring" ${q?.type==="recurring"?"selected":""}>🔄 Recurring</option><option value="one-time" ${q?.type==="one-time"?"selected":""}>📌 One-time</option></select></div><div class="field"><label>XP</label><input id="fXp" type="number" value="${q?.xp??3}"></div><div class="field"><label>COINS</label><input id="fCoin" type="number" value="${q?.coin??3}"></div>`,saveQuest)}
+function saveQuest(){const name=document.getElementById("fName").value.trim();if(!name){toast("Name your quest first.");return}const o={id:editing||"custom-"+Date.now(),name,category:document.getElementById("fCat").value,icon:document.getElementById("fIcon").value||"⚔️",type:document.getElementById("fType").value,xp:+document.getElementById("fXp").value||0,coin:+document.getElementById("fCoin").value||0,custom:true};if(editing){const i=customQ.findIndex(x=>x.id===editing);customQ[i]=o}else customQ.push(o);persist();closeModal();renderAll();toast(editing?"Quest updated!":"Quest added!")}
+function openReward(id){editing=id||null;formMode="reward";const r=id?customR.find(x=>x.id===id):null;showForm("＋ Add Reward",`<div class="field"><label>REWARD NAME</label><input id="fName" value="${r?esc(r.name):""}"></div><div class="field"><label>CATEGORY</label><select id="fCat"><option>Small</option><option>Fun</option><option>Big</option><option>Legendary</option></select></div><div class="field"><label>ICON</label><input id="fIcon" value="${r?.icon||"🎁"}"></div><div class="field"><label>COIN COST</label><input id="fCost" type="number" value="${r?.cost??25}"></div>`,saveReward)}
+function saveReward(){const name=document.getElementById("fName").value.trim();if(!name){toast("Name your reward first.");return}const o={id:editing||"reward-"+Date.now(),name,category:document.getElementById("fCat").value,icon:document.getElementById("fIcon").value||"🎁",cost:Math.max(1,+document.getElementById("fCost").value||1),custom:true};if(editing){const i=customR.findIndex(x=>x.id===editing);customR[i]=o}else customR.push(o);persist();closeModal();renderAll();toast(editing?"Reward updated!":"Reward added!")}
+function showForm(title,body,fn){document.getElementById("mTitle").textContent=title;document.getElementById("mBody").innerHTML=body;document.getElementById("mPrimary").textContent="Save";document.getElementById("mPrimary").onclick=fn;document.getElementById("modal").classList.add("show")}
+function openInfo(t,b,fn){document.getElementById("mTitle").textContent=t;document.getElementById("mBody").innerHTML=`<p class="muted" style="font-size:13px;line-height:1.5">${b}</p>`;document.getElementById("mPrimary").textContent=fn?"Redeem":"Close";document.getElementById("mPrimary").onclick=fn||closeModal;document.getElementById("modal").classList.add("show")}
+function closeModal(){document.getElementById("modal").classList.remove("show");editing=null;formMode=null;pendingReward=null}
+function renderAchievements(){const u=defs.filter(a=>achState.unlocked[a.id]).length;document.getElementById("aUnlocked").textContent=u;document.getElementById("aEarned").textContent=achState.earnedCoins||0;document.getElementById("achList").innerHTML=defs.map(a=>{const v=Math.min(metric(a),a.target),done=!!achState.unlocked[a.id];return `<div class="ach"><div class="icon">${done?a.icon:"🔒"}</div><div><div class="aname">${a.name}</div><div class="adesc">${a.desc}</div><div class="progress"><div style="width:${Math.round(v/a.target*100)}%"></div></div><div class="rewardtxt">🪙 +${a.reward} · ${v}/${a.target}</div></div><span class="muted">${done?"✓":"LOCKED"}</span></div>`}).join("")}
+function show(screen){document.querySelectorAll(".screen").forEach(x=>x.classList.remove("active"));document.getElementById(screen).classList.add("active");document.querySelectorAll(".nav").forEach(n=>n.classList.toggle("active",n.dataset.screen===screen));const titles={home:"⌂ Today's Adventure",character:"● Character",quests:"☷ Quests",shop:"♜ Reward Shop",achievements:"🏆 Achievements"};document.getElementById("topTitle").textContent=titles[screen]}
+function metric(a){if(a.metric==="quests")return +state.totalCompleted||0;if(a.metric==="streak")return +state.streak||0;if(a.metric==="earnedCoins")return +state.totalCoinsEarned||0;if(a.metric==="purchases")return (state.rewardHistory||[]).length;if(a.metric==="boss")return (state.history||[]).filter(x=>x.category==="Boss").length;if(a.metric==="level")return Math.floor((+state.totalXp||0)/50)+1;return 0}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function toast(t){const x=document.getElementById("toast");x.textContent=t;x.classList.add("show");setTimeout(()=>x.classList.remove("show"),1900)}
+renderAll();
 </script></body></html>
