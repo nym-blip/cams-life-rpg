@@ -1,129 +1,25 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#080d1a">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Cam RPG">
-<link rel="manifest" href="manifest.json">
-<title>Cam's Life RPG</title>
+<!doctype html><html><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07111f"><meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.json"><title>Cam's Life RPG</title>
 <style>
-:root{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",system-ui,sans-serif;color:#f8fafc;background:#080d1a}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top,#1e293b,#0b1020 48%,#050812);min-height:100vh}
-.app{max-width:720px;margin:auto;padding:calc(16px + env(safe-area-inset-top)) 16px calc(30px + env(safe-area-inset-bottom))}
-.header{text-align:center}.title{font-weight:900;letter-spacing:1px;font-size:25px}.subtitle{color:#94a3b8;font-size:13px;margin-top:4px}
-.card{background:rgba(15,23,42,.9);border:1px solid rgba(148,163,184,.18);border-radius:24px;padding:18px;margin-top:14px;box-shadow:0 16px 35px rgba(0,0,0,.22)}
-.character{display:grid;grid-template-columns:92px 1fr;gap:16px;align-items:center}.avatar{width:92px;height:92px;border-radius:25px;background:#172554;display:grid;place-items:center;font-size:48px;border:1px solid #334155}
-.level{font-size:13px;color:#94a3b8;letter-spacing:1px}.name{font-size:28px;font-weight:900}.titleline{font-size:12px;color:#60a5fa;font-weight:800;margin-top:2px}
-.xp{font-size:16px;font-weight:800;margin-top:8px}.bar{height:11px;background:#1e293b;border-radius:99px;overflow:hidden;margin-top:9px}.fill{height:100%;background:#60a5fa;transition:width .35s}
-.meta{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.pill{padding:11px;border-radius:15px;background:#111827;text-align:center}.pill b{font-size:18px}.pill span{display:block;color:#94a3b8;font-size:11px;margin-top:2px}
-h2{font-size:18px;margin:0}.sub{color:#64748b;font-size:12px;margin:4px 0 12px}
-.quest{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid rgba(148,163,184,.1)}.quest:last-child{border-bottom:0}.qicon{font-size:22px}.qmain{flex:1}.qname{font-weight:800}.qmeta{font-size:12px;color:#94a3b8;margin-top:3px}.complete{border:0;border-radius:14px;padding:9px 11px;background:#2563eb;color:#fff;font-weight:800}.complete.done{background:#334155}.quest.done .qname{text-decoration:line-through;color:#64748b}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{background:#0b1222;border:1px solid #1e293b;border-radius:17px;padding:13px}.stat b{font-size:22px}.stat span{display:block;color:#94a3b8;font-size:12px;margin-top:2px}.statbar{height:6px;background:#1e293b;border-radius:99px;margin-top:8px;overflow:hidden}.statfill{height:100%;background:#60a5fa}
-.achievement{display:flex;gap:12px;align-items:center;padding:10px 0}.badge{font-size:25px}.locked{opacity:.55}
-.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}.action{border:1px solid #334155;background:#111827;color:#f8fafc;border-radius:16px;padding:14px;font-weight:800}
-.reset{width:100%;margin-top:14px;background:transparent;color:#64748b;border:1px solid #1e293b;border-radius:14px;padding:11px}
-.save-status{text-align:center;color:#64748b;font-size:11px;margin-top:10px}
-.toast{position:fixed;left:50%;bottom:25px;transform:translateX(-50%) translateY(25px);opacity:0;background:#f8fafc;color:#0f172a;padding:13px 17px;border-radius:16px;font-weight:900;transition:.25s;z-index:5;white-space:nowrap}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;padding:20px;z-index:4}.modal.show{display:flex}.modalbox{max-width:420px;width:100%;background:#0f172a;border:1px solid #334155;border-radius:26px;padding:25px;text-align:center}.levelup{font-size:36px}.modalbox h2{font-size:26px;margin:8px 0}.modalbox p{color:#94a3b8}.modalbox button{border:0;border-radius:15px;padding:12px 22px;background:#2563eb;color:#fff;font-weight:900}
-</style>
-</head>
-<body>
-<div class="app">
-<div class="header"><div class="title">⚔️ CAM'S LIFE RPG</div><div class="subtitle">Your life. Your character. Your adventure.</div></div>
-
-<section class="card">
-<div class="character"><div class="avatar">🧑‍🎤</div><div>
-<div class="level">ADVENTURER · LEVEL <span id="level">1</span></div>
-<div class="name">Cam</div><div class="titleline" id="title">🌱 Beginner Adventurer</div>
-<div class="xp">⭐ <span id="totalXp">0</span> total XP</div>
-<div class="sub" style="margin:3px 0 0"><span id="currentXp">0</span> / 50 XP to next level</div>
-<div class="bar"><div class="fill" id="fill"></div></div></div></div>
-<div class="meta"><div class="pill">🪙 <b id="coins">0</b><span>Coins</span></div><div class="pill">🔥 <b id="streak">0</b><span>Day Streak</span></div></div>
-<div class="save-status" id="saveStatus">💾 Save ready</div>
-</section>
-
-<section class="card"><h2>📜 Active Quests</h2><div class="sub">Complete quests to grow your character.</div><div id="quests"></div></section>
-<section class="card"><h2>📊 Character Stats</h2><div class="sub">Everyday actions build your attributes.</div><div class="grid" id="stats"></div></section>
-<section class="card"><h2>🏆 Achievements</h2><div id="achievements"></div></section>
-<section class="card"><h2>🗺️ Adventure</h2><div class="sub">More areas will unlock as Cam grows.</div><div class="actions">
-<button class="action" onclick="info('Character','Your full character sheet is coming next.')">🧑‍🎤 Character</button>
-<button class="action" onclick="info('Quest Log','A full quest history is coming next.')">📜 Quest Log</button>
-<button class="action" onclick="info('Rewards','The reward shop is coming next.')">🎁 Rewards</button>
-<button class="action" onclick="info('Achievements','Your achievement collection is growing!')">🏆 Achievements</button>
-</div></section>
-<button class="reset" id="reset">Reset today's quests</button>
-</div>
-
-<div class="toast" id="toast"></div>
-<div class="modal" id="modal"><div class="modalbox"><div class="levelup">✨</div><h2 id="modalTitle">LEVEL UP!</h2><p id="modalText"></p><button onclick="closeModal()">Continue Adventure</button></div></div>
-
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(#07111f,#050b14);color:#f7f4ea;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",system-ui,sans-serif}
+.app{max-width:720px;margin:auto;padding:8px 10px 90px}.top{height:58px;display:grid;grid-template-columns:48px 1fr 48px;align-items:center;border-bottom:1px solid #29405f;text-align:center}.top button{background:none;border:0;color:#e5b83d;font-size:24px}.top h1{font-size:22px;margin:0}.card{background:#0b1729;border:1px solid #29446a;border-radius:20px;padding:14px;margin-top:10px;box-shadow:0 12px 30px #0004}.hero{display:grid;grid-template-columns:40% 60%;gap:12px;border-color:#d9a52d}.portrait{aspect-ratio:1/1.18;border:3px solid #e5b83d;border-radius:16px;background:#07316e;display:grid;place-items:center;font-size:70px}.name{font-size:38px;font-weight:950}.badge{margin-top:8px;border:2px solid #e5b83d;border-radius:12px;padding:7px;text-align:center;color:#f3d071;font-size:11px;font-weight:900}.xphead{display:flex;justify-content:space-between;margin-top:15px;font-weight:900}.star{color:#ffd14a;font-size:22px}.bar{height:11px;background:#101d31;border:1px solid #31496d;border-radius:99px;margin:7px 0;overflow:hidden}.fill{height:100%;background:#934cff}.center{text-align:center;font-size:12px;color:#cdd3df}.meta{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}.pill{border:1px solid #2f4b72;border-radius:13px;padding:8px;text-align:center;font-weight:900}.pill small{display:block;color:#aab5c7;font-size:10px}.save{text-align:center;color:#38e47d;font-size:11px;margin-top:8px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.section h2{font-size:15px;margin:0 0 8px}.row{display:grid;grid-template-columns:28px 1fr auto;gap:6px;align-items:center;padding:10px 0;border-top:1px solid #1c2e48;font-size:12px}.row:first-child{border-top:0}.icon{font-size:19px}.value{font-weight:950;font-size:15px}.title-head{font-weight:950;margin-bottom:9px}.titles{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.title{min-height:90px;border:1px solid #36557f;border-radius:13px;background:#0c192c;color:#f7f4ea;padding:8px 4px;font-weight:800}.title.equipped{border:2px solid #e5b83d;background:#382d18}.title.locked{opacity:.45}.ti{font-size:23px}.tn{font-size:10px;line-height:1.1}.stars{font-size:10px;color:#dce3ef}.bottom{position:fixed;bottom:0;left:0;right:0;background:#06101c;border-top:1px solid #29405f;padding:7px 8px calc(7px + env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(5,1fr)}.nav{background:none;border:0;color:#91a0b7;font-size:10px;font-weight:800}.nav b{display:block;font-size:20px}.nav.active{color:#f0bf36}
+</style></head><body><div class="app">
+<header class="top"><button>☰</button><h1>👑 Character</h1><button>⚙️</button></header>
+<section class="card hero"><div class="portrait">🧑🏾‍🦱</div><div><div class="name">Cam</div><div class="badge">LEVEL <span id="level">1</span> • <span id="title">BEGINNER ADVENTURER</span></div>
+<div class="xphead"><span><span class="star">★</span> Lifetime XP</span><span id="xp">0 XP</span></div><div class="bar"><div class="fill" id="fill"></div></div><div class="center"><span id="cur">0</span> / 50 XP to next level</div>
+<div class="meta"><div class="pill">🪙 <span id="coins">0</span><small>Coins</small></div><div class="pill">🔥 <span id="streak">0</span><small>Day Streak</small></div></div><div class="save">● Saved</div></div></section>
+<div class="grid"><section class="card section"><h2>📊 ATTRIBUTES</h2><div id="stats"></div></section><section class="card section"><h2>🏆 ADVENTURE STATS</h2><div id="adv"></div></section></div>
+<section class="card"><div class="title-head">👑 TITLES</div><div class="titles" id="titles"></div></section></div>
+<nav class="bottom"><button class="nav">⌂<b>Home</b></button><button class="nav active">●<b>Character</b></button><button class="nav">☷<b>Quests</b></button><button class="nav">♜<b>Shop</b></button><button class="nav">🏆<b>Achievements</b></button></nav>
 <script>
-const SAVE_VERSION=4,DB_NAME="CamLifeRPG",STORE="save";
-const quests=[
-{id:"bed",name:"Escape the Bed",cat:"🌅 Morning",xp:2,coin:2,stat:null},
-{id:"brush-am",name:"Morning Brush",cat:"🌅 Morning",xp:2,coin:2,stat:"selfcare"},
-{id:"breakfast",name:"Fuel the Adventurer",cat:"🍽️ Nutrition",xp:3,coin:3,stat:"nutrition"},
-{id:"shower",name:"Refresh Yourself",cat:"🧼 Self-Care",xp:3,coin:3,stat:"selfcare"},
-{id:"clean",name:"Room Reset",cat:"🧹 Environment",xp:2,coin:2,stat:"environment"},
-{id:"workout",name:"Training Arc",cat:"💪 Training",xp:5,coin:5,stat:"strength"},
-{id:"dinner",name:"Refuel",cat:"🍽️ Nutrition",xp:3,coin:3,stat:"nutrition"},
-{id:"brush-pm",name:"Night Brush",cat:"🌙 Evening",xp:2,coin:2,stat:"selfcare"}];
-const statMeta={strength:["💪","Strength"],selfcare:["🧼","Self-Care"],nutrition:["🍽️","Nutrition"],environment:["🧹","Environment"]};
-const titles=[[50,"⚔️ Rising Adventurer"],[250,"🛡️ Seasoned Adventurer"],[500,"🔥 Veteran Adventurer"],[1000,"👑 Elite Adventurer"],[2450,"👑 Master Adventurer"]];
-const today=new Date().toISOString().slice(0,10);
-let state=null;
-
-function fresh(){return {saveVersion:SAVE_VERSION,totalXp:0,coins:0,stats:{strength:0,selfcare:0,nutrition:0,environment:0},done:{},dayKey:today,streak:0,totalCompleted:0,daysCompleted:[],history:[]}}
-function normalize(s){
-if(!s||typeof s!=="object")return fresh();
-s.saveVersion=SAVE_VERSION;s.totalXp=Number(s.totalXp)||0;s.coins=Number(s.coins)||0;
-s.stats=Object.assign({strength:0,selfcare:0,nutrition:0,environment:0},s.stats||{});
-s.done=s.done||{};s.daysCompleted=Array.isArray(s.daysCompleted)?s.daysCompleted:[];s.history=Array.isArray(s.history)?s.history:[];
-if(s.dayKey!==today){s.done={};s.dayKey=today}return s;
-}
-function localLoad(){try{return normalize(JSON.parse(localStorage.getItem("camRpgSave")||"null"))}catch(e){return null}}
-function localSave(){try{localStorage.setItem("camRpgSave",JSON.stringify(state));return true}catch(e){return false}}
-function openDB(){return new Promise((res,rej)=>{const r=indexedDB.open(DB_NAME,1);r.onupgradeneeded=()=>{if(!r.result.objectStoreNames.contains(STORE))r.result.createObjectStore(STORE)};r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}
-async function dbLoad(){try{const db=await openDB();return await new Promise((res,rej)=>{const tx=db.transaction(STORE,"readonly"),r=tx.objectStore(STORE).get("cam");r.onsuccess=()=>res(r.result?normalize(r.result):null);r.onerror=()=>rej(r.error)})}catch(e){return null}}
-async function dbSave(){try{const db=await openDB();return await new Promise((res,rej)=>{const tx=db.transaction(STORE,"readwrite");tx.objectStore(STORE).put(state,"cam");tx.oncomplete=()=>res(true);tx.onerror=()=>rej(tx.error)})}catch(e){return false}}
-async function save(){
-const localOK=localSave(),dbOK=await dbSave();
-document.getElementById("saveStatus").textContent=(localOK||dbOK)?"💾 Saved":"⚠️ Save unavailable";
-}
-async function load(){
-const db=await dbLoad(),local=localLoad();
-if(db&&local)state=db.totalXp>=local.totalXp?db:local;
-else state=db||local||fresh();
-if(state.dayKey!==today){state.done={};state.dayKey=today}
-await save();
-}
-function level(){return Math.floor(state.totalXp/50)+1}
-function currentXp(){return state.totalXp%50}
-function currentTitle(){let t="🌱 Beginner Adventurer";for(const x of titles)if(state.totalXp>=x[0])t=x[1];return t}
-function render(){
-document.getElementById("level").textContent=level();document.getElementById("totalXp").textContent=state.totalXp;
-document.getElementById("currentXp").textContent=currentXp();document.getElementById("fill").style.width=(currentXp()*2)+"%";
-document.getElementById("coins").textContent=state.coins;document.getElementById("streak").textContent=state.streak;document.getElementById("title").textContent=currentTitle();
-document.getElementById("quests").innerHTML=quests.map(q=>{const d=!!state.done[q.id];return `<div class="quest ${d?"done":""}"><div class="qicon">${d?"✅":"⚔️"}</div><div class="qmain"><div class="qname">${q.name}</div><div class="qmeta">${q.cat} · +${q.xp} XP · +${q.coin} 🪙</div></div><button class="complete ${d?"done":""}" data-id="${q.id}">${d?"Done":"Complete"}</button></div>`}).join("");
-document.querySelectorAll("[data-id]").forEach(b=>b.onclick=()=>toggle(b.dataset.id));
-document.getElementById("stats").innerHTML=Object.entries(statMeta).map(([k,v])=>{const n=state.stats[k],pct=(n%25)*4;return `<div class="stat">${v[0]} <b>${n}</b><span>${v[1]}</span><div class="statbar"><div class="statfill" style="width:${pct}%"></div></div></div>`}).join("");
-const a=[["🏆","First Quest","Complete your first quest.",state.totalCompleted>=1],["🔥","Consistency","Reach a 3-day streak.",state.streak>=3],["💪","Training Arc","Earn 10 Strength points.",state.stats.strength>=10],["🧼","Fresh Start","Earn 10 Self-Care points.",state.stats.selfcare>=10],["⚔️","Rising Adventurer","Reach Level 2.",state.totalXp>=50],["👑","Master Adventurer","Reach Level 50.",state.totalXp>=2450]];
-document.getElementById("achievements").innerHTML=a.map(x=>`<div class="achievement ${x[3]?"":"locked"}"><div class="badge">${x[3]?x[0]:"🔒"}</div><div><b>${x[1]}</b><div class="qmeta">${x[3]?"Unlocked!":x[2]}</div></div></div>`).join("");
-}
-function toast(t){const x=document.getElementById("toast");x.textContent=t;x.classList.add("show");setTimeout(()=>x.classList.remove("show"),1700)}
-function showModal(t,p){document.getElementById("modalTitle").textContent=t;document.getElementById("modalText").textContent=p;document.getElementById("modal").classList.add("show")}
-function closeModal(){document.getElementById("modal").classList.remove("show")}
-function info(t,p){showModal(t,p)}
-async function toggle(id){
-const q=quests.find(x=>x.id===id);if(!q)return;
-if(state.done[id]){delete state.done[id];state.totalXp=Math.max(0,state.totalXp-q.xp);state.coins=Math.max(0,state.coins-q.coin);if(q.stat)state.stats[q.stat]=Math.max(0,state.stats[q.stat]-q.xp)}
-else{const before=level();state.done[id]=true;state.totalXp+=q.xp;state.coins+=q.coin;if(q.stat)state.stats[q.stat]+=q.xp;state.totalCompleted++;if(!state.daysCompleted.includes(today))state.daysCompleted.push(today);state.streak=state.daysCompleted.length;state.history.push({date:today,quest:id,xp:q.xp,coins:q.coin});if(level()>before)showModal("✨ LEVEL UP!",`Cam reached Level ${level()}! You now have ${state.totalXp} lifetime XP.`);else toast(`Quest complete! +${q.xp} XP · +${q.coin} 🪙`)}
-render();await save();
-}
-document.getElementById("reset").onclick=async()=>{if(confirm("Reset today's quests? Lifetime XP, coins, stats, achievements, and streak stay safe.")){for(const q of quests)if(state.done[q.id]){state.totalXp=Math.max(0,state.totalXp-q.xp);state.coins=Math.max(0,state.coins-q.coin);if(q.stat)state.stats[q.stat]=Math.max(0,state.stats[q.stat]-q.xp)}state.done={};render();await save()}};
-(async()=>{await load();render()})();
-</script>
-</body></html>
+const key="camRpgSave";let s={totalXp:0,coins:0,streak:0,totalCompleted:0,stats:{strength:0,selfcare:0,nutrition:0,environment:0},equippedTitle:"Beginner Adventurer"};try{s=Object.assign(s,JSON.parse(localStorage.getItem(key)||"{}"))}catch(e){}
+const meta={strength:["💪","Strength"],selfcare:["💜","Self-Care"],nutrition:["🍎","Nutrition"],environment:["🏠","Environment"]};
+const ts=[[0,"👑","Beginner Adventurer","★"],[50,"⚔️","Rising Adventurer","★★"],[250,"🛡️","Seasoned Adventurer","★★★"],[500,"🔥","Veteran Adventurer","★★★★"],[1000,"👑","Elite Adventurer","★★★★★"],[2450,"👑","Master Adventurer","★★★★★"]];
+const lvl=Math.floor(s.totalXp/50)+1,cur=s.totalXp%50;document.getElementById("level").textContent=lvl;document.getElementById("xp").textContent=s.totalXp+" XP";document.getElementById("cur").textContent=cur;document.getElementById("fill").style.width=cur*2+"%";document.getElementById("coins").textContent=s.coins;document.getElementById("streak").textContent=s.streak;document.getElementById("title").textContent=(s.equippedTitle||"Beginner Adventurer").toUpperCase();
+document.getElementById("stats").innerHTML=Object.entries(meta).map(([k,v])=>`<div class="row"><div class="icon">${v[0]}</div><div>${v[1]}</div><div class="value">${s.stats[k]||0}</div></div>`).join("");
+document.getElementById("adv").innerHTML=[["📋","Quests Completed",s.totalCompleted],["🔥","Current Streak",s.streak],["🏆","Achievements",s.totalCompleted>0?1:0],["🪙","Coins Earned",s.coins]].map(x=>`<div class="row"><div class="icon">${x[0]}</div><div>${x[1]}</div><div class="value">${x[2]||0}</div></div>`).join("");
+document.getElementById("titles").innerHTML=ts.map(t=>{let u=s.totalXp>=t[0],e=s.equippedTitle===t[2];return `<button class="title ${e?"equipped":""} ${u?"":"locked"}" ${u?`onclick="equip('${t[2]}')"`:"disabled"}><div class="ti">${u?t[1]:"🔒"}</div><div class="tn">${t[2]}</div><div class="stars">${t[3]}</div></button>`}).join("");
+function equip(n){s.equippedTitle=n;localStorage.setItem(key,JSON.stringify(s));location.reload()}
+</script></body></html>
